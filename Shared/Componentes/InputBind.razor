@@ -1,0 +1,18 @@
+﻿<div class="comprobación" style="margin-right: 20px;">
+    <input type="number" value="@Numero1" class="form-control" placeholder="Introduce un número" @onchange="OnNumero1Changed"/>
+</div>
+
+@code {
+    [Parameter] public double? Numero1 { get; set; }
+    [Parameter] public EventCallback<double?> Numero1Changed { get; set; }
+
+    private async Task OnNumero1Changed(ChangeEventArgs args)
+    {
+        if (double.TryParse(args.Value.ToString(), out double convertido))
+        {
+            Numero1 = convertido;
+            Numero1Changed.InvokeAsync(Numero1);
+            Console.WriteLine($"El número 1 ingresado es: {Numero1}");
+        }
+    }
+}

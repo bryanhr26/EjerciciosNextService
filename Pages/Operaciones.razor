@@ -1,0 +1,179 @@
+﻿@page "/operaciones" 
+@inject IJSRuntime JSRuntime
+
+<h3>Operaciones con componentes</h3>
+
+<div class="valores-inputs" style="display:flex;margin-top: 20px; ">
+
+    <BlazorApp1.Shared.Componentes.InputBind @bind-Numero1="Numero1" />
+
+    <BlazorApp1.Shared.Componentes.InputCambiaValor NumeroInputChanged="OnValorNumeroInputChangedCambia" />
+
+    <BlazorApp1.Shared.Componentes.SelectorOperacion OperacionSeleccionada="OperacionSeleccionada" OperacionInputChanged="OnSelectOperation" />
+
+    <button class="btn btn-primary" style="background-color: black !important; border-color: black" @onclick="RealizarOperacion">Calcular</button>
+
+
+</div>
+
+<div class="resultado-operacion" style="margin-top: 20px;">
+    @if (!string.IsNullOrEmpty(ErrorMensaje))
+    {
+        <p style="color: red;">@ErrorMensaje</p>
+    }else
+    {
+        <p class="@ColorResultado" style="@GetStyle()">@Mensaje</p>
+    }
+
+    <BlazorApp1.Shared.Componentes.ColorBloque Numero="@Resultado" Multiplo="@Multiplo"/>
+</div>
+
+@code {
+    private double? Numero1;
+    private double? Numero2;
+    private double? Resultado;
+    private string OperacionSeleccionada = "sumar";
+    private string ColorResultado = "";
+    private string Mensaje = "";
+    private string ErrorMensaje = "";
+    private double Multiplo = 4;
+
+    private void OnValorNumeroInputChangedCambia(double? nuevoNumero)
+    {
+        //Actualiza el valor cuando cambia el numero
+        Numero2 = nuevoNumero;
+    }
+
+    private async Task OnSelectOperation(string operacion)
+    {
+        OperacionSeleccionada = operacion;
+    }
+
+    //Método para realizar la operación seleccionada
+    private async Task RealizarOperacion()
+    {
+        //Compruebo si los valores son nulos o vacios
+        if (!Numero1.HasValue || !Numero2.HasValue)
+        {
+            ErrorMensaje = "Los valores no pueden estar vacios. Por favor, ingrese ambos valores.";
+            return;
+        }
+        ErrorMensaje = string.Empty;
+
+        if (OperacionSeleccionada == "sumar")
+        {
+            Resultado = Numero1 + Numero2;
+        }
+        else if (OperacionSeleccionada == "restar")
+        {
+            Resultado = Numero1 - Numero2;
+        }
+        else if (OperacionSeleccionada == "multiplicar")
+        {
+            Resultado = Numero1 * Numero2;
+        }
+        else if (OperacionSeleccionada == "dividir")
+        {
+            if (Numero2 == 0)
+            {
+                ErrorMensaje = "No se puede dividir entre cero.";
+                return;
+            }
+            Resultado = Numero1 / Numero2;
+        }
+
+        GetStyle();
+        ComprobarColor();
+
+        // Forzar la actualización del DOM en Blazor
+        StateHasChanged();
+        await Task.Delay(100);
+
+        // Llamar a JavaScript solo después de actualizar la UI
+        if (!string.IsNullOrEmpty(Mensaje))
+        {
+            await JSRuntime.InvokeVoidAsync("mostrarAlerta", "Hola");
+        }
+    }
+
+    private void ComprobarColor()
+    {
+        if (Resultado > 0)
+        {
+            Mensaje = $"El resultado de la operación es: {Resultado}";
+            ColorResultado = "text-success";
+        }
+        else if (Resultado < 0)
+        {
+            Mensaje = $"El resultado de la operación es: {Resultado}";
+            ColorResultado = "text-danger";
+        }
+    }
+
+    private string GetStyle ()
+    {
+        if (Resultado > 20 )
+        {
+            return "font-size: 38px; font-weight: bold; ";  
+        }
+        else
+        {
+            return "font-size: 16px; font-weight: normal;";
+        }
+    }
+
+    // Función que se llamará desde JS para actualizar el mensaje
+    public class Index : ComponentBase
+    {
+        [JSInvokable]
+        public static void ActualizarMensajeOperacion()
+        {
+            Console.WriteLine("La función Blazor ha sido llamada correctamente.");
+
+        }
+    }
+
+
+}
+
+@* 
+ESTRUCTURA!
+
+Componente 1 input tipo double con @Bind 
+Componente 2 input tipo double con funcion para cambiar el valor.
+Componente 3 dropdown con seleccion (suma, resta, multiplicacion y division)
+
+
+Boton de calcular.
+Resultado de la operacion. 
+*@
+
+
+
+
+@* 
+EJERCICIO A HACER EN BLAZOR!
+
+Quiero en el componente PADRE que tenga 3 componentes hijos.
+El primero es un input para decirle un numero
+El segundo lo mismo
+
+El tercero es un desplegable con seleccion (suma, resta, multiplicacion y division)
+Quiero que el primer input obtenga el numero con un @Bind, mientras que en el segundo input llame a una funcion para cambiar el valor.
+
+El componente padre tiene un boton para CALCULAR y tendrá el resultado.
+El resultado se calcula segun la operacion que hayamos elegido y con los dos numeros escritos.
+HECHO!
+
+Si no se escribe alguno de los numeros, muestra un mensaje por pantalla de que es incorrecto y no hará el calculo. Si es correcto, hará el calculo.
+Si es calculo es positivo, que lo ponga en verde. Si es negativo, que lo ponga en rojo. El calculo es un DECIMAL.
+Si el numero es mayor de 20, ponerle un fontsize al resultado de 38px y negrita.
+
+1.Cuando le de a calcular, una vez hecho todo el calculo, llamo una funcion javascript que muestra una alerta que diga "Hola"
+2.La funcion que dice hola, llame a una funcion de blazor de operaciones y se comunique.
+
+//Incorporar el ColorBloque:
+1. Reciba el numero del resultado
+2. Compruebe si es multiplo de X numero por parametro
+3. Muestre el color
+*@

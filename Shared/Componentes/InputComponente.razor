@@ -1,0 +1,15 @@
+﻿<div class="comprobación" style="display: flex;">
+    <input style="width: auto;" @bind="Numero" type="number" class="form-control" placeholder="Introduce un número" />
+    <button class="btn btn-primary" @onclick="OnValorNumeroInputChanged">Comprobar</button>
+</div>
+
+@code {
+    [Parameter] public EventCallback<int?> NumeroInputChanged { get; set; }
+
+    private int? Numero;
+
+    private async Task OnValorNumeroInputChanged()
+    {
+        await NumeroInputChanged.InvokeAsync(Numero); //Invoca el EventoCallback pasando el valor
+    }
+}

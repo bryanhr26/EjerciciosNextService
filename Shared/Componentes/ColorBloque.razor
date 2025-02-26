@@ -1,0 +1,48 @@
+﻿<div class="resultado" style="margin-top: 20px;">
+    <p class="@colorResultado">@mensaje</p>
+</div>
+
+<div class="colorBloque" style="@GetStyle()">
+</div>
+
+@code{
+    [Parameter] public double? Numero{ get; set; }
+    [Parameter] public double Multiplo { get; set; }
+    private string mensaje = "";
+    private string colorResultado = "";
+    private bool EsMultiplo = true;
+
+    // Este método se ejecuta cada vez que los parámetros del componente cambian
+    protected override void OnParametersSet()
+    {
+        ComprobarMultiplo();
+    }
+
+    public void ComprobarMultiplo()
+    {
+        if (Numero.HasValue && Numero.Value % Multiplo == 0) // Se asegura que Numero no sea nulo.
+        {
+            mensaje = $"El número {Numero} es un número múltiplo de {Multiplo}";
+            colorResultado = "text-success";  // Color del texto verde
+            EsMultiplo = true;
+        }
+        else if (Numero.HasValue && Numero.Value % Multiplo != 0)
+        {
+            mensaje = $"El número {Numero} no es un número múltiplo de {Multiplo}";
+            colorResultado = "text-danger";  // Color del texto rojo
+            EsMultiplo = false;
+        }
+    }
+
+    private string GetStyle()
+    {
+        if (Numero.HasValue)
+        {
+            return $"width: 500px; height: 500px; background-color: {(EsMultiplo ? "green" : "red")};";
+        }
+        else
+        {
+            return "display: none;";
+        }
+    }
+}

@@ -1,0 +1,46 @@
+﻿/* offcanvas.css */
+
+/* Estilos básicos para el offcanvas */
+.offcanvas {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -250px; /* Inicialmente, el offcanvas está oculto fuera de la pantalla */
+    width: 250px;
+    background-color: #333;
+    color: white;
+    transition: all 0.3s ease-in-out; /* Transición suave */
+    z-index: 9999;
+    padding: 15px;
+}
+
+    .offcanvas.show {
+        left: 0; /* Muestra el offcanvas */
+    }
+
+/* Estilos para el contenido del offcanvas */
+.offcanvas-header {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.offcanvas-body {
+    font-size: 1rem;
+}
+
+/* Fondo de la página cuando el offcanvas está abierto */
+.offcanvas-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo translúcido */
+    z-index: 9998;
+    display: none; /* Oculto inicialmente */
+}
+
+    .offcanvas-overlay.show {
+        display: block; /* Muestra el overlay cuando el offcanvas está abierto */
+    }

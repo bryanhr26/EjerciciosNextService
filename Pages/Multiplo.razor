@@ -1,0 +1,51 @@
+﻿@page "/multiplo"
+
+<h3>Comprobar si el número es múltiplo de 3</h3>
+
+<BlazorApp1.Shared.Componentes.InputComponente NumeroInputChanged="OnNumeroInputChanged">
+
+</BlazorApp1.Shared.Componentes.InputComponente>
+
+<p style="margin-top: 20px;">@((MarkupString)Mensaje)</p>
+
+<BlazorApp1.Shared.Componentes.ColorBloque Numero="@Numero">
+
+</BlazorApp1.Shared.Componentes.ColorBloque>
+
+@code {
+    private int? Numero;
+    private int Multiplicador = 5;
+    private string Mensaje = "";
+
+    private void OnNumeroInputChanged(int? nuevoNumero)
+    {
+        //Actualiza el valor cuando cambia el numero
+        Numero = nuevoNumero;
+
+        if (Numero.HasValue)
+        {
+            Numero = MultiplicarValor(Numero.Value);
+            Mensaje = $" <i class='fas fa-info-circle'></i> El numero introducido ha sido multiplicado por {Multiplicador}.";
+        }else
+        {
+            Mensaje = $" <i class='fas fa-info-circle'></i> No hay valor introducido, por favor introduce un valor.";
+        }
+
+    }
+
+    private int MultiplicarValor(int valor)
+    {
+        return valor * Multiplicador;
+    }
+
+
+}
+
+
+@* 
+Componentes Interactuando:
+1. El valor de Numero se pasa desde el componente padre (donde el usuario introduce el número) al componente ColorBloque.
+2. Cuando el valor de Numero cambia, el método OnParametersSet se ejecuta y llama a ComprobarMultiplo para verificar si el número es múltiplo de 3 y actualizar los resultados.
+3. El bloque de color se ajusta según el resultado de la comprobación. 
+4. El valor del input en esta propia pagina me lo multiplique por 5 y lo compruebe de nuevo.
+*@

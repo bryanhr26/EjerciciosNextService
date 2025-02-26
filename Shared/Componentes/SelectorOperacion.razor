@@ -1,0 +1,25 @@
+﻿<!-- Dropdown con las operaciones -->
+<select style="margin-right: 20px;" @onchange="OnOperacionSeleccionada">
+    <option value="sumar">Sumar</option>
+    <option value="restar">Restar</option>
+    <option value="multiplicar">Multiplicar</option>
+    <option value="dividir">Dividir</option>
+</select>
+
+@code{
+
+    [Parameter] public double? Numero1 { get; set; }
+    [Parameter] public double? Numero2 { get; set; }
+    [Parameter] public string OperacionSeleccionada { get; set; }
+    [Parameter] public EventCallback<string> OperacionInputChanged { get; set; }
+
+    private double resultado;
+
+    // Método para manejar el cambio del dropdwon
+    private async Task OnOperacionSeleccionada (ChangeEventArgs e)
+    {
+        OperacionSeleccionada = e.Value.ToString();
+        await OperacionInputChanged.InvokeAsync(OperacionSeleccionada);
+    }
+
+}
