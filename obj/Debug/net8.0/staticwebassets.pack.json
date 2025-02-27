@@ -753,12 +753,8 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "C:\\Users\\Bryan\\source\\repos\\BlazorApp1\\wwwroot\\js\\mensajejs.js",
-      "PackagePath": "staticwebassets\\js\\mensajejs.js"
-    },
-    {
-      "Id": "C:\\Users\\Bryan\\source\\repos\\BlazorApp1\\wwwroot\\js\\offcanvas.js",
-      "PackagePath": "staticwebassets\\js\\offcanvas.js"
+      "Id": "C:\\Users\\Bryan\\source\\repos\\BlazorApp1\\wwwroot\\js\\FuncionesJS.js",
+      "PackagePath": "staticwebassets\\js\\FuncionesJS.js"
     },
     {
       "Id": "C:\\Users\\Bryan\\source\\repos\\BlazorApp1\\wwwroot\\sample-data\\weather.json",

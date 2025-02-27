@@ -32,6 +32,8 @@
     <Content Remove="Shared\Componentes\Component2.razor" />
     <Content Remove="wwwroot\css\.editorconfig" />
     <Content Remove="wwwroot\css\offcanvas.css" />
+    <Content Remove="wwwroot\js\mensajejs.js" />
+    <Content Remove="wwwroot\js\offcanvas.js" />
   </ItemGroup>
 
   <ItemGroup>
