@@ -34,7 +34,7 @@ function CerrarOffcanvas(nombreOffCanvas) {
             capasProtectoras.forEach(capa => {
 
                 if (capa.id) {
-                    capa.remove();
+                    capa.remove(bsOffCanvas);
                 }
             })
         }

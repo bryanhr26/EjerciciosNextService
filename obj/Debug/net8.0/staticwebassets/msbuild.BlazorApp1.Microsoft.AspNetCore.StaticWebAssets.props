@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ApplicationBundle</AssetTraitValue>
-      <Fingerprint>i2cahjzze5</Fingerprint>
-      <Integrity>mih5SizGz91Rr6RpbAKYh8Whl5SB1Y91c55lh7JkCLI=</Integrity>
+      <Fingerprint>nxcx8mpk5h</Fingerprint>
+      <Integrity>RZBiacRWmTCoZiUd3MfFD83Qwwz7K/e40Eg46dFGZUE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BlazorApp1.styles.css'))</OriginalItemSpec>
@@ -3378,8 +3378,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>9awhu8lc3q</Fingerprint>
-      <Integrity>T/QaY2KKo03NIOKlsiB2qSkczhAmFzFVc+0xu5Fy1So=</Integrity>
+      <Fingerprint>32j6xrlh17</Fingerprint>
+      <Integrity>Bb2SaQFA+IS2NdubSlSVeJ0w3zLP2ZCEd44VZGzTpiw=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\FuncionesJS.js'))</OriginalItemSpec>

@@ -1036,6 +1036,6 @@ C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\refint\BlazorApp1.dll
 C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\BlazorApp1.pdb
 C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\ref\BlazorApp1.dll
 C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\BlazorApp1.sourcelink.json
-C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\compressed\mpnezo3ggr-azwqcjvo9f.gz
-C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\compressed\kyjy2iuvp1-bbnjc1p2g1.gz
-C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\compressed\5jzqasczcu-qgq5mxfg8l.gz
+C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\compressed\mpnezo3ggr-wols1e3uw9.gz
+C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\compressed\kyjy2iuvp1-8ugx5ytoaq.gz
+C:\Users\Bryan\source\repos\BlazorApp1\obj\Debug\net8.0\compressed\5jzqasczcu-0durru18f3.gz

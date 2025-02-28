@@ -3,7 +3,7 @@
 
 <h3>Menu Offcanvas</h3>
 
-<button class="btn btn-primary" @onclick="OpenOffcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Abrir menu lateral</button>
+<button class="btn btn-primary" @onclick="OpenOffcanvas" type="button" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Abrir menu lateral</button>
 
 <BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas"/>
 
@@ -19,16 +19,5 @@
     private async Task ControlCerrarOffcanvas()
     {
         await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", "offcanvasWithBothOptions");
-    }
-
-    // Método del ciclo de vida OnAfterRenderAsync que asegura que el DOM está cargado
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // Si es la primera vez que se renderiza el componente, ejecutamos la lógica necesaria
-            Console.WriteLine("Componente renderizado, ahora podemos ejecutar JS para abrir el Offcanvas.");
-            await Task.Delay(100); // Opcional, dependiendo de tu caso
-        }
     }
 }
