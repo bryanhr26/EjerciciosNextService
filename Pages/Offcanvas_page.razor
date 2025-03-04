@@ -3,21 +3,40 @@
 
 <h3>Menu Offcanvas</h3>
 
-<button class="btn btn-primary" @onclick="OpenOffcanvas" type="button" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Abrir menu lateral</button>
+@* <button class="btn btn-primary" @onclick="OpenOffcanvas" type="button" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Abrir menu lateral</button> *@
+<button type="button" class="btn btn-primary" @onclick="OpenOffcanvas">Abrir menu lateral</button>
 
-<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas"/>
+<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="800px" IdOffcanvas="@idFicha">
+
+    <Formulario>
+
+        <BlazorApp1.Pages.Operaciones>
+
+        </BlazorApp1.Pages.Operaciones>
+
+    </Formulario>
+
+    <Formulario2>
+
+        <BlazorApp1.Pages.Weather>
+
+        </BlazorApp1.Pages.Weather>
+
+    </Formulario2>
+
+</BlazorApp1.Shared.Componentes.Offcanvas>
 
 @code {
-    private bool isFirtsRender = true;
+    private string idFicha = "offcanvasCalcular";
 
     private async Task OpenOffcanvas()
     {
         //Llamar a la funcion JS para abrir Offcanvas
-        await JSRuntime.InvokeVoidAsync("abrirOffCanvas", "offcanvasWithBothOptions");
+        await JSRuntime.InvokeVoidAsync("abrirOffCanvas", idFicha);
     }
 
     private async Task ControlCerrarOffcanvas()
     {
-        await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", "offcanvasWithBothOptions");
+        await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
     }
 }

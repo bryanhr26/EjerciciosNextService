@@ -31,12 +31,12 @@ function CerrarOffcanvas(nombreOffCanvas) {
 
         if (capasProtectoras != null) {
 
-            capasProtectoras.forEach(capa => {
+            var capa = document.getElementById(`${nombreOffCanvas}-bs`);
 
-                if (capa.id) {
-                    capa.remove(bsOffCanvas);
-                }
-            })
+            if (capa) {
+                capa.remove();
+            }
+
         }
 
         miOffcanvas?.classList.remove('show');
@@ -64,6 +64,7 @@ window.abrirOffCanvas = (nombreOffCanvas) => {
                 if (!capa.id) {
 
                     capa.id = `${nombreOffCanvas}-bs`;
+                    capa.id;
 
                     return;
 

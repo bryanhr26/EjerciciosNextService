@@ -30,6 +30,7 @@
     <Content Remove="Shared\Componentes\Component.razor" />
     <Content Remove="Shared\Componentes\Component1.razor" />
     <Content Remove="Shared\Componentes\Component2.razor" />
+    <Content Remove="Shared\Componentes\ResultadoOperacion.razor" />
     <Content Remove="wwwroot\css\.editorconfig" />
     <Content Remove="wwwroot\css\offcanvas.css" />
     <Content Remove="wwwroot\js\mensajejs.js" />

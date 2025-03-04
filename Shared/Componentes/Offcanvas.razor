@@ -1,20 +1,37 @@
 ﻿@inject IJSRuntime JSRuntime
 
-<div class="offcanvas offcanvas-end" style="width: 800px;" data-bs-scroll="true" data-bs-keyboard="false" data-bs-backdrop="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" role="slider">
+<div class="offcanvas offcanvas-end" style="width: @AnchoOffcanvas;" data-bs-scroll="true" data-bs-keyboard="false" data-bs-backdrop="true" tabindex="-1" id="@IdOffcanvas" aria-labelledby="offcanvasWithBothOptionsLabel" role="slider">
     <div class="offcanvas-header" style="background-color: rgb(7 27 69); color: white;">
         <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop con scrolling</h5>
         <button @onclick="OnCerrarOffcanvas" type="button" class="btn-close" style="background-color: white; opacity: 90;" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>Aqui implementaremos mas opciones</p>
+        @Formulario
+        @Formulario2
+        @Resultado
     </div>
 </div>
 
 @code {
     [Parameter] public EventCallback CerrarOffcanvas { get; set; }
+    [Parameter] public string? AnchoOffcanvas { get; set; }
+    [Parameter] public RenderFragment? Formulario { get; set; }
+    [Parameter] public RenderFragment? Formulario2 { get; set; }
+    [Parameter] public RenderFragment? Resultado { get; set; }
+    [Parameter] public string? IdOffcanvas { get; set; }
 
     private async Task OnCerrarOffcanvas()
     {
         await CerrarOffcanvas.InvokeAsync();
     }
 }
+
+
+
+@* Crear parametro RenderFragment llamado Formulario y pasarle la pagina operaciones
+Hacer que el tamaño se selecione desde la pagina 
+
+1. Crear RenderFragment en Offcanvas.razor
+2. Llamar en offcanvas.razor la pagina operaciones.razor
+
+*@

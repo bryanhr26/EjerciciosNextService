@@ -10,7 +10,7 @@
 
     [Parameter] public double? Numero1 { get; set; }
     [Parameter] public double? Numero2 { get; set; }
-    [Parameter] public string OperacionSeleccionada { get; set; }
+    [Parameter] public string? OperacionSeleccionada { get; set; }
     [Parameter] public EventCallback<string> OperacionInputChanged { get; set; }
 
     private double resultado;

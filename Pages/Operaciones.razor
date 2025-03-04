@@ -25,8 +25,15 @@
         <p class="@ColorResultado" style="@GetStyle()">@Mensaje</p>
     }
 
-    <BlazorApp1.Shared.Componentes.ColorBloque Numero="@Resultado" Multiplo="@Multiplo"/>
 </div>
+
+<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="600px" IdOffcanvas="@idResultado">
+
+    <Resultado>
+        <BlazorApp1.Shared.Componentes.ColorBloque Numero="@Resultado" Multiplo="@Multiplo" />
+    </Resultado>
+
+</BlazorApp1.Shared.Componentes.Offcanvas>
 
 @code {
     private double? Numero1;
@@ -37,6 +44,7 @@
     private string Mensaje = "";
     private string ErrorMensaje = "";
     private double Multiplo = 4;
+    private string idResultado = "offcanvasResultado";
 
     private void OnValorNumeroInputChangedCambia(double? nuevoNumero)
     {
@@ -52,6 +60,7 @@
     //Método para realizar la operación seleccionada
     private async Task RealizarOperacion()
     {
+
         //Compruebo si los valores son nulos o vacios
         if (!Numero1.HasValue || !Numero2.HasValue)
         {
@@ -94,6 +103,11 @@
         {
             await JSRuntime.InvokeVoidAsync("mostrarAlerta", "Hola");
         }
+
+        StateHasChanged();
+
+        await OpenOffcanvas();
+        
     }
 
     private void ComprobarColor()
@@ -122,6 +136,19 @@
         }
     }
 
+    //Abrir y cerrrar Offcanvas
+    private async Task OpenOffcanvas()
+    {
+        //Llamar a la funcion JS para abrir Offcanvas
+        await JSRuntime.InvokeVoidAsync("abrirOffCanvas", idResultado);
+    }
+
+    private async Task ControlCerrarOffcanvas()
+    {
+        await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idResultado);
+    }
+
+
     // Función que se llamará desde JS para actualizar el mensaje
     public class Index : ComponentBase
     {
@@ -132,7 +159,6 @@
 
         }
     }
-
 
 }
 
@@ -176,4 +202,10 @@ Si el numero es mayor de 20, ponerle un fontsize al resultado de 38px y negrita.
 1. Reciba el numero del resultado
 2. Compruebe si es multiplo de X numero por parametro
 3. Muestre el color
+
+
+
+
+//Modificar:
+Cuando le de al boton de calcular se va abrir un offcanva que muestra el resultado de la operacion (color)
 *@

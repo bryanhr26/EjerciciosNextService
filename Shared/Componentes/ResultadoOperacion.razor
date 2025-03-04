@@ -1,0 +1,17 @@
+﻿
+<p>Resultado de la operacion</p>
+
+<BlazorApp1.Shared.Componentes.ColorBloque Numero="@Resultado" Multiplo="@Multiplo">
+
+</BlazorApp1.Shared.Componentes.ColorBloque>
+
+<BlazorApp1.Pages.Weather>
+
+</BlazorApp1.Pages.Weather>
+
+@code{
+
+    [Parameter] public double? Resultado { get; set; }
+    [Parameter] public double Multiplo { get; set; }
+
+}
