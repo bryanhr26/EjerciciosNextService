@@ -41,6 +41,7 @@ function CerrarOffcanvas(nombreOffCanvas) {
 
         miOffcanvas?.classList.remove('show');
         miOffcanvas?.classList.add('hide');
+        //Sumar 1 al contador
 
     }
 

@@ -3378,8 +3378,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ugdxuz9t91</Fingerprint>
-      <Integrity>btzO+ObdFhVO7Mew9m8bS+ZOcXDIvaYxkHBzKCV6xyc=</Integrity>
+      <Fingerprint>g8dg9qgzyb</Fingerprint>
+      <Integrity>ALhIsrHriAhVlLNFEe3oSdQ6AwOO/LcIAmfn98h0U3s=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\FuncionesJS.js'))</OriginalItemSpec>

@@ -6,11 +6,11 @@
 @* <button class="btn btn-primary" @onclick="OpenOffcanvas" type="button" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Abrir menu lateral</button> *@
 <button type="button" class="btn btn-primary" @onclick="OpenOffcanvas">Abrir menu lateral</button>
 
-<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="800px" IdOffcanvas="@idFicha">
+<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="800px" IdOffcanvas="@idFicha" TituloOffcanvas="@TituloConContador">
 
     <Formulario>
 
-        <BlazorApp1.Pages.Operaciones>
+        <BlazorApp1.Pages.Operaciones OnContadorCambiado="ActualizarContador">
 
         </BlazorApp1.Pages.Operaciones>
 
@@ -28,6 +28,17 @@
 
 @code {
     private string idFicha = "offcanvasCalcular";
+    private string tituloFicha = "Operación con numeros";
+    private int? contadorCierres = 0;
+    
+
+    public string TituloConContador
+    {
+        get
+        {
+            return tituloFicha + " - " + contadorCierres?.ToString();
+        }
+    }
 
     private async Task OpenOffcanvas()
     {
@@ -38,5 +49,11 @@
     private async Task ControlCerrarOffcanvas()
     {
         await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
+    }
+
+    private void ActualizarContador (int? contador)
+    {
+        contadorCierres = contador;
+        StateHasChanged();
     }
 }

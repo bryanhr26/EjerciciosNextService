@@ -27,13 +27,14 @@
 
 </div>
 
-<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="600px" IdOffcanvas="@idResultado">
+<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="600px" IdOffcanvas="@idResultado" TituloOffcanvas="@TituloResultado">
 
     <Resultado>
         <BlazorApp1.Shared.Componentes.ColorBloque Numero="@Resultado" Multiplo="@Multiplo" />
     </Resultado>
 
 </BlazorApp1.Shared.Componentes.Offcanvas>
+
 
 @code {
     private double? Numero1;
@@ -45,6 +46,15 @@
     private string ErrorMensaje = "";
     private double Multiplo = 4;
     private string idResultado = "offcanvasResultado";
+    private string TituloResultado = "Es un resultado multiplo?";
+    private int contadorCierres = 0;
+
+    [Parameter] public EventCallback<int?> OnContadorCambiado { get; set; }
+
+    private void IncrementCount()
+    {
+        contadorCierres++;
+    }
 
     private void OnValorNumeroInputChangedCambia(double? nuevoNumero)
     {
@@ -107,7 +117,7 @@
         StateHasChanged();
 
         await OpenOffcanvas();
-        
+
     }
 
     private void ComprobarColor()
@@ -146,7 +156,10 @@
     private async Task ControlCerrarOffcanvas()
     {
         await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idResultado);
+        IncrementCount();
+        await OnContadorCambiado.InvokeAsync(contadorCierres);
     }
+
 
 
     // Función que se llamará desde JS para actualizar el mensaje

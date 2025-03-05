@@ -2,7 +2,7 @@
 
 <div class="offcanvas offcanvas-end" style="width: @AnchoOffcanvas;" data-bs-scroll="true" data-bs-keyboard="false" data-bs-backdrop="true" tabindex="-1" id="@IdOffcanvas" aria-labelledby="offcanvasWithBothOptionsLabel" role="slider">
     <div class="offcanvas-header" style="background-color: rgb(7 27 69); color: white;">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop con scrolling</h5>
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">@TituloOffcanvas</h5>
         <button @onclick="OnCerrarOffcanvas" type="button" class="btn-close" style="background-color: white; opacity: 90;" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -19,6 +19,8 @@
     [Parameter] public RenderFragment? Formulario2 { get; set; }
     [Parameter] public RenderFragment? Resultado { get; set; }
     [Parameter] public string? IdOffcanvas { get; set; }
+    [Parameter] public string? TituloOffcanvas { get; set; }
+    
 
     private async Task OnCerrarOffcanvas()
     {

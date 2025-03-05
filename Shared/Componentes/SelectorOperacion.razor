@@ -8,12 +8,8 @@
 
 @code{
 
-    [Parameter] public double? Numero1 { get; set; }
-    [Parameter] public double? Numero2 { get; set; }
     [Parameter] public string? OperacionSeleccionada { get; set; }
     [Parameter] public EventCallback<string> OperacionInputChanged { get; set; }
-
-    private double resultado;
 
     // Método para manejar el cambio del dropdwon
     private async Task OnOperacionSeleccionada (ChangeEventArgs e)
