@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\BlazorApp1.styles.css"
     },
     {
+      "Id": "C:\\Users\\Bryan\\source\\repos\\BlazorApp1\\wwwroot\\Vehiculos.json",
+      "PackagePath": "staticwebassets\\Vehiculos.json"
+    },
+    {
       "Id": "C:\\Users\\Bryan\\source\\repos\\BlazorApp1\\wwwroot\\bootstrap\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\bootstrap\\css\\bootstrap-grid.css"
     },

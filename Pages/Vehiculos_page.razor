@@ -1,0 +1,33 @@
+﻿@page "/vehiculos"
+@inject VehiculoService VehiculoService
+@using BlazorApp1.Shared.Componentes
+@using BlazorApp1.Models
+
+
+<BlazorApp1.Shared.Componentes.TablaVehiculos Vehiculos="vehiculos">
+
+</BlazorApp1.Shared.Componentes.TablaVehiculos>
+
+
+@code {
+
+    private List<Vehiculo> vehiculos = new List<Vehiculo>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        vehiculos = await VehiculoService.GetVehiculosAsync();
+    }
+
+}
+
+@* 
+Pasar la tabla por un componenete
+Que la tabla se pinten render fragments por columnas
+
+Leer:
+
+Cascading parameter
+TypeParam
+Reflexion
+
+ *@

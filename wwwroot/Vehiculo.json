@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "marca": "Toyota",
+    "modelo": "Corolla",
+    "matricula": "1234ABC",
+    "numeroDeBastidor": "XYZ123456789",
+    "color": "Rojo"
+  },
+  {
+    "id": 2,
+    "marca": "Ford",
+    "modelo": "Focus",
+    "matricula": "5678DEF",
+    "numeroDeBastidor": "ABC987654321",
+    "color": "Azul"
+  }
+]

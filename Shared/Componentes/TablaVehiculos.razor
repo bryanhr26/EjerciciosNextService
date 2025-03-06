@@ -1,0 +1,37 @@
+﻿@using BlazorApp1.Models
+
+<h3>Lista de Vehículos</h3>
+
+<table class="tabla-vehiculos" style="width: -webkit-fill-available;">
+
+    <thead style=" background-color: rgb(7 27 69); color: white; ">
+        <tr>
+            <th>ID</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Matrícula</th>
+            <th>Número de Bastidor</th>
+            <th>Color</th>
+        </tr>
+    </thead>
+    <tbody style=" background-color: gainsboro; ">
+        @foreach (var vehiculo in Vehiculos)
+        {
+            <tr>
+                <td>@vehiculo.Id</td>
+                <td>@vehiculo.Marca</td>
+                <td>@vehiculo.Modelo</td>
+                <td>@vehiculo.Matricula</td>
+                <td>@vehiculo.NumeroDeBastidor</td>
+                <td>@vehiculo.Color</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@code{
+
+    [Parameter] public List<Vehiculo> Vehiculos { get; set; } = new List<Vehiculo>();
+
+}

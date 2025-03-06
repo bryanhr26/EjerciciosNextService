@@ -186,3 +186,4 @@ wwwroot\icon-192.png
 wwwroot\index.html
 wwwroot\js\FuncionesJS.js
 wwwroot\sample-data\weather.json
+wwwroot\Vehiculos.json
