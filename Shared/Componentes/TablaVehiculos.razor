@@ -1,8 +1,36 @@
 ﻿@using BlazorApp1.Models
 
+@typeparam T
+
 <h3>Lista de Vehículos</h3>
 
 <table class="tabla-vehiculos" style="width: -webkit-fill-available;">
+    <thead style=" background-color: rgb(7 27 69); color: white; ">
+        <tr>
+            @foreach (var prop in typeof(T).GetProperties())
+            {
+                <th>@prop.Name</th>
+            }
+        </tr>
+    </thead>
+    <tbody style=" background-color: gainsboro; ">
+        @foreach (var item in ListaGenerica)
+        {
+            <tr>
+                @foreach (var prop in typeof(T).GetProperties())
+                {
+                    <td>@prop.GetValue(item)</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public List<T>? ListaGenerica { get; set; }
+}
+
+@* <table class="tabla-vehiculos" style="width: -webkit-fill-available;">
 
     <thead style=" background-color: rgb(7 27 69); color: white; ">
         <tr>
@@ -34,4 +62,4 @@
 
     [Parameter] public List<Vehiculo> Vehiculos { get; set; } = new List<Vehiculo>();
 
-}
+} *@

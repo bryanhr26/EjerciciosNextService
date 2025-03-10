@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@using BlazorApp1.Models
+@using BlazorApp1.Shared
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -9,8 +12,27 @@
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
+        <CascadingValue Value="@Color">
+            <CascadingValue Value="usuario">
+                <CascadingValue Value="carrito">
+                    @Body
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+
+
     </main>
 </div>
+
+
+@code {
+    private Usuario usuario = new Usuario
+    {
+        Nombre = "Juan Pérez",
+        Correo = "juan.perez@email.com"
+    };
+
+    private Carrito carrito = new Carrito();
+
+    private string Color = "green";
+}

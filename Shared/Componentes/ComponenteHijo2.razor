@@ -1,0 +1,24 @@
+﻿@page "/componente-hijo2"
+
+<h4>Componente Hijo 2</h4>
+
+<p>Lista recibida a través de la cascada:</p>
+
+@if (ListaHijo1 != null && ListaHijo1.Any())
+{
+    <ul>
+        @foreach (var item in ListaHijo1)
+        {
+            <li>@item</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hay datos disponibles.</p>
+}
+
+@code {
+    
+    [CascadingParameter] public List<string> ListaHijo1 { get; set; }
+}

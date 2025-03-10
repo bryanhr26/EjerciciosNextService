@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ApplicationBundle</AssetTraitValue>
-      <Fingerprint>9c6vzgmxdt</Fingerprint>
-      <Integrity>J+vLVTv2iyXa5EPVfx+FTKsIwG3GdSuLKGA8l/dobsU=</Integrity>
+      <Fingerprint>td9vbtc4fl</Fingerprint>
+      <Integrity>v3+KyX1r6vzZZ/hxiSQq158gF+p3JD9N5v9g+iFTiWQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BlazorApp1.styles.css'))</OriginalItemSpec>

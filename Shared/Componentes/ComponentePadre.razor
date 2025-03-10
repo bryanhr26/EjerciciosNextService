@@ -1,0 +1,15 @@
+﻿@page "/componente-padre"
+
+<h3>Componente Padre</h3>
+
+<p>Lista enviada a los hijos:</p>
+
+<!-- Definimos un valor para el parámetro que pasaremos a los hijos -->
+<CascadingValue Value="@ListaDeValores">
+    <ComponenteHijo1 />
+</CascadingValue>
+
+@code {
+    // Lista que será pasada por cascada
+    private List<string> ListaDeValores = new List<string> { "Valor 1", "Valor 2", "Valor 3" };
+}

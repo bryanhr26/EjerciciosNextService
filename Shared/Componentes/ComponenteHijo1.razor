@@ -1,0 +1,21 @@
+﻿@page "/componente-hijo1"
+
+<h4>Componente Hijo 1</h4>
+
+<p>Lista recibida de Componente Padre:</p>
+
+<ul>
+    @foreach (var item in ListaPadre)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+<!-- Ahora pasamos el valor recibido a otro componente hijo -->
+<CascadingValue Value="@ListaPadre">
+    <ComponenteHijo2 />
+</CascadingValue>
+
+@code {
+    [Parameter] public List<string> ListaPadre { get; set; }
+}

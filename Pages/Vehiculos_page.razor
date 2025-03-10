@@ -4,12 +4,20 @@
 @using BlazorApp1.Models
 
 
-<BlazorApp1.Shared.Componentes.TablaVehiculos Vehiculos="vehiculos">
+<BlazorApp1.Shared.Componentes.TablaVehiculos ListaGenerica="vehiculos">
 
 </BlazorApp1.Shared.Componentes.TablaVehiculos>
 
+<h3>Carrito de compras</h3>
+<ul>
+    @foreach (var producto in carrito.Productos)
+    {
+        <li>@producto.Nombre</li>
+    }
+</ul>
 
 @code {
+    [CascadingParameter] public Carrito? carrito { get; set; }
 
     private List<Vehiculo> vehiculos = new List<Vehiculo>();
 

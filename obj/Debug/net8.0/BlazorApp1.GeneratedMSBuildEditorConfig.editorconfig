@@ -28,6 +28,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Cascading_page.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzY2FkaW5nX3BhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Bryan/source/repos/BlazorApp1/Pages/Component.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/Categorias.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXENhdGVnb3JpYXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/ColorBloque.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXENvbG9yQmxvcXVlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -78,6 +86,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/Offcanvas.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXE9mZmNhbnZhcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/Productos.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXFByb2R1Y3Rvcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/SelectorOperacion.razor]

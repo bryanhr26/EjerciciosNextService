@@ -1,0 +1,81 @@
+﻿@page "/productos/{categoriaId:int}"
+@using BlazorApp1.Models
+@using BlazorApp1.Shared
+
+<CascadingValue Value="categoriaSeleccionada">
+    <h3>Productos en la categoría: @categoriaSeleccionada?.Nombre</h3>
+    <p style="color: @Color;">Usuario: @usuario?.Nombre</p>
+
+    <ul>
+        @foreach (var producto in productos)
+        {
+            <li>@producto.Nombre</li>
+            <button @onclick="() => AgregarAlCarrito(producto)">Agregar al carrito</button>
+        }
+    </ul>
+</CascadingValue>
+
+<p>---------------------------------------------------------------------------------------</p>
+
+<h3>Carrito de compras</h3>
+<ul>
+    @foreach (var producto in carrito.Productos)
+    {
+        <li>@producto.Nombre</li>
+    }
+</ul>
+
+
+
+@code {
+    [Parameter]
+    public int categoriaId { get; set; }  // Captura el parametro de la URL
+
+    [CascadingParameter]
+    public Usuario? usuario { get; set; }
+
+    [CascadingParameter]
+    public Categoria? categoriaSeleccionada { get; set; }
+
+    [CascadingParameter]
+    public Carrito? carrito { get; set; }
+
+    [CascadingParameter]
+    protected string? Color { get; set; }
+
+    private List<Producto> productos = new List<Producto>
+    {
+        new Producto { Id = 1, Nombre = "Laptop", CategoriaId = 1 },
+        new Producto { Id = 2, Nombre = "Smartphone", CategoriaId = 1 },
+        new Producto { Id = 3, Nombre = "Camiseta", CategoriaId = 2 },
+        new Producto { Id = 4, Nombre = "Pantalones", CategoriaId = 2 }
+    };
+
+    protected override void OnInitialized()
+    {
+        // Filtrar productos por la categoría seleccionada
+        if (categoriaId > 0)
+        {
+            // Asignamos la categoría seleccionada basada en el `categoriaId` capturado
+            categoriaSeleccionada = productos
+                .Where(p => p.CategoriaId == categoriaId)
+                .Select(p => new Categoria { Id = categoriaId, Nombre = p.Nombre })
+                .FirstOrDefault();
+        }
+
+        if (categoriaSeleccionada != null)
+        {
+            // Filtramos los productos por la categoría
+            productos = productos.Where(p => p.CategoriaId == categoriaSeleccionada.Id).ToList();
+        }
+    }
+
+    private void AgregarAlCarrito(Producto producto)
+    {
+        if (carrito != null)
+        {
+            carrito.AgregarProducto(producto);
+        }
+        StateHasChanged();
+    }
+}

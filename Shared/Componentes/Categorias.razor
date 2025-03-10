@@ -1,0 +1,37 @@
+﻿@using BlazorApp1.Models
+@using BlazorApp1.Shared
+@inject NavigationManager Navigation
+
+<div>
+    <h3>Categorías</h3>
+    <p>Usuario: @usuario.Nombre</p>
+    <ul>
+        @foreach (var categoria in categorias)
+        {
+            <li @onclick="() => SeleccionarCategoria(categoria)">
+                @categoria.Nombre
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+
+    [CascadingParameter]
+    public Usuario? usuario { get; set; }
+
+    private List<Categoria> categorias = new List<Categoria>
+    {
+        new Categoria { Id = 1, Nombre = "Electrónica" },
+        new Categoria { Id = 2, Nombre = "Ropa" },
+        new Categoria { Id = 3, Nombre = "Comida" }
+    };
+
+    private Categoria? categoriaSeleccionada;
+
+    private void SeleccionarCategoria(Categoria categoria)
+    {
+        // Aquí la categoría seleccionada se pasa como un parámetro en cascada
+        Navigation.NavigateTo($"/productos/{categoria.Id}");
+    }
+}

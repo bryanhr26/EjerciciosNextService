@@ -30,6 +30,9 @@
     <Content Remove="Shared\Componentes\Component.razor" />
     <Content Remove="Shared\Componentes\Component1.razor" />
     <Content Remove="Shared\Componentes\Component2.razor" />
+    <Content Remove="Shared\Componentes\ComponenteHijo1.razor" />
+    <Content Remove="Shared\Componentes\ComponenteHijo2.razor" />
+    <Content Remove="Shared\Componentes\ComponentePadre.razor" />
     <Content Remove="Shared\Componentes\ResultadoOperacion.razor" />
     <Content Remove="wwwroot\css\.editorconfig" />
     <Content Remove="wwwroot\css\offcanvas.css" />
@@ -45,6 +48,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.13" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\CascadingParameter\" />
   </ItemGroup>
 
 </Project>
