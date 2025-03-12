@@ -3414,8 +3414,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ry5w99kk9j</Fingerprint>
-      <Integrity>M5NcV7p893gO0fuiOlg5Vfhn1wXy9X9FS2j0cf1GKzE=</Integrity>
+      <Fingerprint>jcb5c7cvin</Fingerprint>
+      <Integrity>Ta8Br7g84dO8OvssrphC1VXq48wjP6U+W8Y1F+sw4ig=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Vehiculos.json'))</OriginalItemSpec>

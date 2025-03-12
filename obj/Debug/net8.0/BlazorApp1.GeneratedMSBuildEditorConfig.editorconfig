@@ -76,8 +76,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXENvbG9yQmxvcXVlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/FichaVehiculo.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXEZpY2hhVmVoaWN1bG8ucmF6b3I=
+[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/FichaFormularioGenerica.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXEZpY2hhRm9ybXVsYXJpb0dlbmVyaWNhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/InputBind.razor]
@@ -104,8 +104,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXFNlbGVjdG9yT3BlcmFjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/TablaVehiculos.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXFRhYmxhVmVoaWN1bG9zLnJhem9y
+[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/TablaGenerica.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXFRhYmxhR2VuZXJpY2EucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Bryan/source/repos/BlazorApp1/_Imports.razor]

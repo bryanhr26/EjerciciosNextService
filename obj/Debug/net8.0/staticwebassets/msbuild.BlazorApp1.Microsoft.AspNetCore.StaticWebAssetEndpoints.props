@@ -2268,17 +2268,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-enKgCMkYmCpfEcmg6Annbmc40VZ/A6aYYSQjZfVn2cU="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"453"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022enKgCMkYmCpfEcmg6Annbmc40VZ/A6aYYSQjZfVn2cU=\u0022"},{"Name":"Last-Modified","Value":"Tue, 18 Feb 2025 07:10:08 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="Vehiculos.jcb5c7cvin.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Vehiculos.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"jcb5c7cvin"},{"Name":"integrity","Value":"sha256-Ta8Br7g84dO8OvssrphC1VXq48wjP6U\u002BW8Y1F\u002Bsw4ig="},{"Name":"label","Value":"Vehiculos.json"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"578"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022Ta8Br7g84dO8OvssrphC1VXq48wjP6U\u002BW8Y1F\u002Bsw4ig=\u0022"},{"Name":"Last-Modified","Value":"Wed, 12 Mar 2025 10:13:47 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="Vehiculos.json">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Vehiculos.json'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-M5NcV7p893gO0fuiOlg5Vfhn1wXy9X9FS2j0cf1GKzE="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"499"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022M5NcV7p893gO0fuiOlg5Vfhn1wXy9X9FS2j0cf1GKzE=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Mar 2025 11:59:04 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="Vehiculos.ry5w99kk9j.json">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Vehiculos.json'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ry5w99kk9j"},{"Name":"integrity","Value":"sha256-M5NcV7p893gO0fuiOlg5Vfhn1wXy9X9FS2j0cf1GKzE="},{"Name":"label","Value":"Vehiculos.json"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"499"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022M5NcV7p893gO0fuiOlg5Vfhn1wXy9X9FS2j0cf1GKzE=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Mar 2025 11:59:04 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Ta8Br7g84dO8OvssrphC1VXq48wjP6U\u002BW8Y1F\u002Bsw4ig="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"578"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022Ta8Br7g84dO8OvssrphC1VXq48wjP6U\u002BW8Y1F\u002Bsw4ig=\u0022"},{"Name":"Last-Modified","Value":"Wed, 12 Mar 2025 10:13:47 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_framework/blazor.webassembly.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\_framework\blazor.webassembly.js'))</AssetFile>

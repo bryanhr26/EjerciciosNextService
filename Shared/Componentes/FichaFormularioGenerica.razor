@@ -1,0 +1,68 @@
+﻿@using BlazorApp1.Models
+@using System.Reflection
+
+@typeparam T
+@inherits BaseFormulario<T>
+
+<div class="ficha-vehiculo" style="height: 100%; display: @(RegistroOrigenTabla == null ? "none" : "block");">
+
+    @if (RegistroOrigenTabla != null)
+    {
+        <div class="datos-vehiculo">
+            @if (Atributos != null && Atributos.Count() > 0)
+            {
+                @foreach (var atributo in Atributos)
+                {
+                    var valor = atributo.GetValue(RegistroOrigenTabla);
+                    var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
+
+                    if (propiedadesFormulario != null)
+                    {
+                        <div>
+                            @{
+                                var tipoLabel = ObtenerTipoLabel(atributo);
+                                var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
+                            }
+
+                            @if (propiedadesFormulario.Visible)
+                            {
+                                <label><strong>@atributo.Name:</strong></label>
+                                <input type="@tipoLabel"
+                                style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
+                                disabled="@deshabilitado"
+                                value="@valor"
+                                @onchange="(e) => ActualizarValor(e, atributo.Name)" />
+                            }
+                        </div>
+
+                    }
+                }
+            }
+        </div>
+        <div class="botones-accion" style="padding-top: 20px;">
+            @if (ModoAccion == Accion.Editar)
+            {
+                <button @onclick="OnGuardarCambios">Guardar cambios</button>
+            }
+
+            @if (ModoAccion == Accion.Eliminar)
+            {
+                <div>
+                    <p>¿Estás seguro de que deseas eliminar este vehículo?</p>
+                    <button @onclick="OnEliminar">Eliminar</button>
+                    <button @onclick="OnCancelarEliminar">Cancelar</button>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    //CREAR ATRIBUTOS FORMULARIO (PROPIEDADESFORMULARIO)
+    //PROPIEDADES: HABILITADO (BOOL), WIDTH (STRING), VISIBLE (BOOL)
+    //CUANDO HAGO EL INITIALIZED, TENDREMOS CON REFLECTOIN QUE ACCEDER A SUS PROPIEDADES
+
+    //DATOS QUE NECESITAMOS PARA MONTAR EL INPUT Y LABEL
+    //Valor, tipo de atributo. Propiedades formulario: visible, habilitado, ancho...
+}
+

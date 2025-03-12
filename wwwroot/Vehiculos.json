@@ -5,6 +5,7 @@
     "modelo": "Corolla",
     "matricula": "1234ABC",
     "numeroDeBastidor": "XYZ123456789",
+    "kilometraje": 5250,
     "color": "Rojo"
   },
   {
@@ -13,6 +14,7 @@
     "modelo": "Focus",
     "matricula": "5678DEF",
     "numeroDeBastidor": "ABC987654321",
+    "kilometraje": 1000,
     "color": "Azul"
   },
   {
@@ -21,6 +23,7 @@
     "modelo": "Ibiza",
     "matricula": "1152MZQ",
     "numeroDeBastidor": "AKZ243215678",
+    "kilometraje": 10512,
     "color": "Negro"
   }
 ]

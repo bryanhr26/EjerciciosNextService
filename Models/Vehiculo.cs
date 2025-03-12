@@ -1,5 +1,40 @@
-﻿namespace BlazorApp1.Models
+﻿using System;
+using System.Reflection;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+namespace BlazorApp1.Models
 {
+    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+    public sealed class PropiedadTablaColumnaAttribute : Attribute
+    {
+        public string Nombre { get; }
+        public bool Visible { get; }
+        public int Ancho { get; }
+        public bool EsAccion { get; }
+
+        public PropiedadTablaColumnaAttribute(string nombre, bool visible = true, int ancho = 100, bool esAccion = false)
+        {
+            Nombre = nombre;
+            Visible = visible;
+            Ancho = ancho;
+            EsAccion = esAccion;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+    public sealed class PropiedadesFormularioAttribute : Attribute
+    {
+        public bool Visible { get; set; }
+        public bool Habilitado { get; set; }
+        public string? Ancho { get; set; }
+
+        public PropiedadesFormularioAttribute(bool visible = true, string ancho = "100%", bool habilitado = true)
+        {
+            Visible = visible;
+            Habilitado = habilitado;
+            Ancho = ancho;
+        }
+    }
+
     public enum Accion
     {
         Ver,
@@ -10,24 +45,30 @@
     public class Vehiculo
     {
         public int Id { get; set; }
+
+        [PropiedadTablaColumna("Marca del vehículo", true, 500)]
+        [PropiedadesFormulario(visible: true, ancho: "350px", habilitado:true)]
         public string Marca { get; set; } = string.Empty;
+
+        [PropiedadTablaColumna("Modelo del vehículo", true, 300)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false)]
         public string Modelo { get; set; } = string.Empty;
+
+        [PropiedadTablaColumna("Matricula del vehículo", true, 200)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false)]
         public string Matricula { get; set; } = string.Empty;
+
+        [PropiedadTablaColumna("Kilometros", true, 200)]
+        [PropiedadesFormulario(visible: true, habilitado: true)]
+        public int Kilometraje { get; set; }
+
         public string NumeroDeBastidor { get; set; } = string.Empty;
+
+        [PropiedadesFormulario(visible: false, ancho: "250px", habilitado:false)]
         public string Color { get; set; } = string.Empty;
 
-        public static List<PropiedadesTablaColumna> ObtenerPropiedadesColumnas<T>()
-        {
-            // Puedes definir cómo deseas manejar las columnas de manera genérica
-            var propiedades = new List<PropiedadesTablaColumna>
-            {
-                new PropiedadesTablaColumna { Nombre = "Marca del vehículo", Visible = true, Ancho = 500, PropiedadModelo = "Marca"},
-                new PropiedadesTablaColumna { Nombre = "Modelo del vehículo", Visible = true, Ancho = 300, PropiedadModelo = "Modelo" },
-                new PropiedadesTablaColumna { Nombre = "Matricula del vehículo", Visible = true, Ancho = 200, PropiedadModelo = "Matricula" },
-                new PropiedadesTablaColumna { Nombre = "Acciones", Visible = true, Ancho = 200, EsAccion = true },
-            };
-            return propiedades;
-        }
+        [PropiedadTablaColumna("Acciones", true, 200, true)]
+        public string Acciones { get; set; } = string.Empty; // Este campo podría ser utilizado para botones de acción, como "editar" o "eliminar"
     }
 
     public class PropiedadesTablaColumna
@@ -37,6 +78,41 @@
         public int Ancho { get; set; } = 100;
         public bool EsAccion { get; set; } = false; // Para saber si es una columna de acción (ver, editar, eliminar)
         public string PropiedadModelo { get; set; } = string.Empty; // Nombre real de la propiedad en el modelo
+    }
+
+    public static class Utilidades
+    {
+        public static List<PropiedadesTablaColumna> ObtenerPropiedadesColumnas<T>()
+        {
+            var propiedades = new List<PropiedadesTablaColumna>();
+
+            // Obtenemos todas las propiedades de la clase T
+            var tipo = typeof(T);
+            var propiedadesClases = tipo.GetProperties();
+
+            foreach (var propiedad in propiedadesClases)
+            {
+
+                // Verificamos si la propiedad tiene el atributo PropiedadTablaColumna
+                var atributo = propiedad.GetCustomAttribute<PropiedadTablaColumnaAttribute>();
+                if (atributo != null)
+                {
+                    // Si tiene el atributo, creamos un objeto PropiedadesTablaColumna
+                    var columna = new PropiedadesTablaColumna
+                    {
+                        Nombre = atributo.Nombre,
+                        Visible = atributo.Visible,
+                        Ancho = atributo.Ancho,
+                        EsAccion = atributo.EsAccion,
+                        PropiedadModelo = propiedad.Name
+                    };
+
+                    propiedades.Add(columna);
+                }
+            }
+
+            return propiedades;
+        }
     }
 }
 

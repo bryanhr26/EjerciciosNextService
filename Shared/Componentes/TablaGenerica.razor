@@ -48,13 +48,16 @@
 
 <BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="800px" IdOffcanvas="@idFicha" TituloOffcanvas="@tituloFicha">
     <Resultado>
-        <FichaVehiculo 
-            VehiculoSeleccionado="vehiculoSeleccionado" 
-            ModoAccion="accionSeleccionada"
-            OnGuardarCambios="GuardarCambios" 
-            OnEliminar="ConfirmarEliminar" 
-            OnCancelarEliminar="CancelarEliminar">
-        </FichaVehiculo>
+        @if (QuieroVerFormulario)
+        {
+            <FichaFormularioGenerica RegistroOrigenTabla="@RegistroSeleccionado"
+                ModoAccion="accionSeleccionada"
+                OnGuardarCambios="GuardarCambios"
+                OnEliminar="ConfirmarEliminar"
+                OnCancelarEliminar="CancelarEliminar">
+            </FichaFormularioGenerica>
+        }
+
     </Resultado>
 </BlazorApp1.Shared.Componentes.Offcanvas>
 
@@ -62,16 +65,17 @@
     [Parameter] public List<T>? ListaGenerica { get; set; }
 
     private List<PropiedadesTablaColumna>? columnas;
-    private Vehiculo? vehiculoSeleccionado;
+    private T? RegistroSeleccionado;
     private string idFicha = "offcanvasVehiculo";
     private string tituloFicha = "Detalles del Vehículo";
     private Accion accionSeleccionada;
     private bool estaEliminando = false;
+    private bool QuieroVerFormulario = false;
 
     protected override void OnInitialized()
     {
-        // Obtener las columnas utilizando el atributo PropiedadesTabla
-        columnas = Vehiculo.ObtenerPropiedadesColumnas<T>();
+        // Obtener las columnas utilizando el método de la clase Utilidades
+        columnas = Utilidades.ObtenerPropiedadesColumnas<Vehiculo>();
     }
 
     private void RealizarAccion(T item, Accion accion)
@@ -95,63 +99,61 @@
     private void Ver(T item)
     {
         // Lógica para ver el item
-        Console.WriteLine($"Ver el vehículo con ID: {((Vehiculo)(object)item).Id}");
         // Asignar el vehículo seleccionado para mostrar en la ficha lateral
-        vehiculoSeleccionado = (Vehiculo)(object)item;
+        RegistroSeleccionado = item;
         OpenOffcanvas();
     }
 
     private void Editar(T item)
     {
         // Lógica para editar el item
-        Console.WriteLine($"Editar el vehículo con ID: {((Vehiculo)(object)item).Id}");
-        vehiculoSeleccionado = (Vehiculo)(object)item;
+        RegistroSeleccionado = item;
         OpenOffcanvas();
     }
 
     private void Eliminar(T item)
     {
         // Lógica para eliminar el item
-        Console.WriteLine($"Eliminar el vehículo con ID: {((Vehiculo)(object)item).Id}");
         //Eliminar el vehículo
         estaEliminando = true; // Marcamos que estamos en el proceso de eliminar
-        vehiculoSeleccionado = (Vehiculo)(object)item;
+        RegistroSeleccionado = item;
         OpenOffcanvas();
     }
 
     private async Task OpenOffcanvas()
     {
-    //Llamar a la funcion JS para abrir Offcanvas
-    await JSRuntime.InvokeVoidAsync("abrirOffCanvas", idFicha);
+        //Llamar a la funcion JS para abrir Offcanvas
+        QuieroVerFormulario = true;
+        await JSRuntime.InvokeVoidAsync("abrirOffCanvas", idFicha);
     }
 
     private async Task ControlCerrarOffcanvas()
     {
-    await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
+        estaEliminando = false;
+        QuieroVerFormulario = false;
+        await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
     }
 
     private void GuardarCambios()
     {
-        if (vehiculoSeleccionado != null)
+        if (RegistroSeleccionado != null)
         {
             // Guardar cambios en la lista
-            var index = ListaGenerica?.FindIndex(v => v.Equals(vehiculoSeleccionado));
+            var index = ListaGenerica?.FindIndex(v => v.Equals(RegistroSeleccionado));
             if (index.HasValue && index.Value >= 0)
             {
-                ListaGenerica[index.Value] = (T)(object)vehiculoSeleccionado;
+                ListaGenerica[index.Value] = (T)(object)RegistroSeleccionado;
             }
 
-            Console.WriteLine($"Se han guardado los cambios del vehículo con ID: {vehiculoSeleccionado.Id}");
         }
         ControlCerrarOffcanvas();
     }
 
     private void ConfirmarEliminar()
     {
-        if (vehiculoSeleccionado != null)
+        if (RegistroSeleccionado != null)
         {
-            ListaGenerica?.Remove((T)(object)vehiculoSeleccionado);
-            Console.WriteLine($"Se ha eliminado el vehículo con ID: {vehiculoSeleccionado.Id}");
+            ListaGenerica?.Remove((T)(object)RegistroSeleccionado);
         }
         ControlCerrarOffcanvas();
     }
