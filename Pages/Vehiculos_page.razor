@@ -24,18 +24,19 @@
     protected override async Task OnInitializedAsync()
     {
         vehiculos = await VehiculoService.GetVehiculosAsync();
+
+        if (vehiculos == null || !vehiculos.Any())
+        {
+            Console.WriteLine("No se encontraron vehículos o la respuesta es nula.");
+        }
     }
 
+    // private List<PropiedadesTablaColumna> columnas;
+
+    // protected override void OnInitialized()
+    // {
+    //     columnas = Vehiculo.ObtenerPropiedadesColumnas<Vehiculo>();
+    // }
+    // private List<Vehiculo> vehiculos = new List<Vehiculo>();
+
 }
-
-@* 
-Pasar la tabla por un componenete
-Que la tabla se pinten render fragments por columnas
-
-Leer:
-
-Cascading parameter
-TypeParam
-Reflexion
-
- *@

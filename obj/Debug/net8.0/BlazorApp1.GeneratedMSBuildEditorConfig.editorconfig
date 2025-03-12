@@ -56,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3BlcmFjaW9uZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Reflection_page.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVmbGVjdGlvbl9wYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Bryan/source/repos/BlazorApp1/Pages/Vehiculos_page.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmVoaWN1bG9zX3BhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/ColorBloque.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXENvbG9yQmxvcXVlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/FichaVehiculo.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXEZpY2hhVmVoaWN1bG8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/InputBind.razor]

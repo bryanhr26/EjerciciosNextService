@@ -1,0 +1,78 @@
+﻿@using BlazorApp1.Models
+@using System.Reflection
+
+<div class="ficha-vehiculo" style="height: 100%; display: @(VehiculoSeleccionado == null ? "none" : "block");">
+
+    @if (VehiculoSeleccionado != null)
+    {
+        <div class="datos-vehiculo">
+            <div>
+                <label><strong>Marca:</strong></label>
+                @if (ModoAccion == Accion.Editar)
+                {
+                    <input type="text" @bind="VehiculoSeleccionado.Marca" />
+                }
+                else
+                {
+                    <input type="text" value="@VehiculoSeleccionado.Marca" readonly />
+                }
+            </div>
+            <div>
+                <label><strong>Modelo:</strong></label>
+                @if (ModoAccion == Accion.Editar)
+                {
+                    <input type="text" @bind="VehiculoSeleccionado.Modelo" />
+                }
+                else
+                {
+                    <input type="text" value="@VehiculoSeleccionado.Modelo" readonly />
+                }
+            </div>
+            <div>
+                <label><strong>Matrícula:</strong></label>
+                @if (ModoAccion == Accion.Editar)
+                {
+                    <input type="text" @bind="VehiculoSeleccionado.Matricula" />
+                }
+                else
+                {
+                    <input type="text" value="@VehiculoSeleccionado.Matricula" readonly />
+                }
+            </div>
+            <div>
+                <label><strong>Color:</strong></label>
+                @if (ModoAccion == Accion.Editar)
+                {
+                    <input type="text" @bind="VehiculoSeleccionado.Color" />
+                }
+                else
+                {
+                    <input type="text" value="@VehiculoSeleccionado.Color" readonly />
+                }
+            </div>
+        </div>
+        <div class="botones-accion" style="padding-top: 20px;">
+            @if (ModoAccion == Accion.Editar)
+            {
+                <button @onclick="OnGuardarCambios">Guardar cambios</button>
+            }
+
+            @if (ModoAccion == Accion.Eliminar)
+            {
+                <div>
+                    <p>¿Estás seguro de que deseas eliminar este vehículo?</p>
+                    <button @onclick="OnEliminar">Eliminar</button>
+                    <button @onclick="OnCancelarEliminar">Cancelar</button>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public Vehiculo? VehiculoSeleccionado { get; set; }
+    [Parameter] public Accion ModoAccion { get; set; }
+    [Parameter] public EventCallback OnGuardarCambios { get; set; }
+    [Parameter] public EventCallback OnEliminar { get; set; }
+    [Parameter] public EventCallback OnCancelarEliminar { get; set; }
+}

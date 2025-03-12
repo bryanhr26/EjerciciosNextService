@@ -1,0 +1,45 @@
+﻿@page "/reflection"
+@using System.Reflection
+@inject NavigationManager Navigation
+
+<h3>Detalles de la Persona</h3>
+
+<div>
+    <h4>Propiedades de la Persona:</h4>
+    <ul>
+        @foreach (var propiedad in propiedadesPersona)
+        {
+            <li>@propiedad.Key: @propiedad.Value</li>
+        }
+    </ul>
+</div>
+
+<button class="btn btn-primary" @onclick="InvocarSaludo">Invocar Saludo</button>
+
+@code {
+    private Persona? persona;
+    private Dictionary<string, object>? propiedadesPersona;
+
+    protected override void OnInitialized()
+    {
+        // Inicializamos una instancia de la clase Persona
+        persona = new Persona("Pedro", 25);
+
+        // Usamos Reflection para obtener las propiedades de la clase Persona
+        propiedadesPersona = new Dictionary<string, object>();
+
+        Type tipoPersona = persona.GetType();
+        foreach (var propiedad in tipoPersona.GetProperties())
+        {
+            propiedadesPersona.Add(propiedad.Name, propiedad.GetValue(persona));
+        }
+    }
+
+    private void InvocarSaludo()
+    {
+        // Usamos Reflection para invocar el método Saludar de la clase Persona
+        Type tipoPersona = persona.GetType();
+        var saludarMetodo = tipoPersona.GetMethod("Saludar");
+        saludarMetodo?.Invoke(persona, null);
+    }
+}

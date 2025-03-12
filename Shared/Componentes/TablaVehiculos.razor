@@ -1,65 +1,165 @@
 ﻿@using BlazorApp1.Models
+@using System.Reflection
+@inject IJSRuntime JSRuntime
 
 @typeparam T
 
 <h3>Lista de Vehículos</h3>
 
-<table class="tabla-vehiculos" style="width: -webkit-fill-available;">
-    <thead style=" background-color: rgb(7 27 69); color: white; ">
+<table class="tabla-vehiculos">
+    <thead style="background-color: rgb(7 27 69); color: white;">
         <tr>
-            @foreach (var prop in typeof(T).GetProperties())
+            @foreach (var columna in columnas)
             {
-                <th>@prop.Name</th>
+                if (columna.Visible)
+                {
+                    <th style="width: @(columna.Ancho.ToString() + "px");">@columna.Nombre</th>
+                }
             }
         </tr>
     </thead>
-    <tbody style=" background-color: gainsboro; ">
+    <tbody style="background-color: gainsboro;">
         @foreach (var item in ListaGenerica)
         {
             <tr>
-                @foreach (var prop in typeof(T).GetProperties())
+                @foreach (var columna in columnas)
                 {
-                    <td>@prop.GetValue(item)</td>
+                    if (columna.Visible)
+                    {
+                        if (columna.EsAccion)
+                        {
+                            <td style="width: @(columna.Ancho.ToString() + "px");">
+                                <button @onclick="() => RealizarAccion(item, Accion.Ver)">Ver</button>
+                                <button @onclick="() => RealizarAccion(item, Accion.Editar)">Editar</button>
+                                <button @onclick="() => RealizarAccion(item, Accion.Eliminar)">Eliminar</button>
+                            </td>
+                        }
+                        else
+                        {
+                            var prop = typeof(T).GetProperty(columna.PropiedadModelo);
+                            <td style="width: @(columna.Ancho.ToString() + "px");">@prop.GetValue(item)</td>
+                        }
+                    }
                 }
             </tr>
         }
     </tbody>
 </table>
 
+<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="800px" IdOffcanvas="@idFicha" TituloOffcanvas="@tituloFicha">
+    <Resultado>
+        <FichaVehiculo 
+            VehiculoSeleccionado="vehiculoSeleccionado" 
+            ModoAccion="accionSeleccionada"
+            OnGuardarCambios="GuardarCambios" 
+            OnEliminar="ConfirmarEliminar" 
+            OnCancelarEliminar="CancelarEliminar">
+        </FichaVehiculo>
+    </Resultado>
+</BlazorApp1.Shared.Componentes.Offcanvas>
+
 @code {
     [Parameter] public List<T>? ListaGenerica { get; set; }
-}
 
-@* <table class="tabla-vehiculos" style="width: -webkit-fill-available;">
+    private List<PropiedadesTablaColumna>? columnas;
+    private Vehiculo? vehiculoSeleccionado;
+    private string idFicha = "offcanvasVehiculo";
+    private string tituloFicha = "Detalles del Vehículo";
+    private Accion accionSeleccionada;
+    private bool estaEliminando = false;
 
-    <thead style=" background-color: rgb(7 27 69); color: white; ">
-        <tr>
-            <th>ID</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Matrícula</th>
-            <th>Número de Bastidor</th>
-            <th>Color</th>
-        </tr>
-    </thead>
-    <tbody style=" background-color: gainsboro; ">
-        @foreach (var vehiculo in Vehiculos)
+    protected override void OnInitialized()
+    {
+        // Obtener las columnas utilizando el atributo PropiedadesTabla
+        columnas = Vehiculo.ObtenerPropiedadesColumnas<T>();
+    }
+
+    private void RealizarAccion(T item, Accion accion)
+    {
+        accionSeleccionada = accion;
+
+        switch (accion)
         {
-            <tr>
-                <td>@vehiculo.Id</td>
-                <td>@vehiculo.Marca</td>
-                <td>@vehiculo.Modelo</td>
-                <td>@vehiculo.Matricula</td>
-                <td>@vehiculo.NumeroDeBastidor</td>
-                <td>@vehiculo.Color</td>
-            </tr>
+            case Accion.Ver:
+                Ver(item);
+                break;
+            case Accion.Editar:
+                Editar(item);
+                break;
+            case Accion.Eliminar:
+                Eliminar(item);
+                break;
         }
-    </tbody>
+    }
 
-</table>
+    private void Ver(T item)
+    {
+        // Lógica para ver el item
+        Console.WriteLine($"Ver el vehículo con ID: {((Vehiculo)(object)item).Id}");
+        // Asignar el vehículo seleccionado para mostrar en la ficha lateral
+        vehiculoSeleccionado = (Vehiculo)(object)item;
+        OpenOffcanvas();
+    }
 
-@code{
+    private void Editar(T item)
+    {
+        // Lógica para editar el item
+        Console.WriteLine($"Editar el vehículo con ID: {((Vehiculo)(object)item).Id}");
+        vehiculoSeleccionado = (Vehiculo)(object)item;
+        OpenOffcanvas();
+    }
 
-    [Parameter] public List<Vehiculo> Vehiculos { get; set; } = new List<Vehiculo>();
+    private void Eliminar(T item)
+    {
+        // Lógica para eliminar el item
+        Console.WriteLine($"Eliminar el vehículo con ID: {((Vehiculo)(object)item).Id}");
+        //Eliminar el vehículo
+        estaEliminando = true; // Marcamos que estamos en el proceso de eliminar
+        vehiculoSeleccionado = (Vehiculo)(object)item;
+        OpenOffcanvas();
+    }
 
-} *@
+    private async Task OpenOffcanvas()
+    {
+    //Llamar a la funcion JS para abrir Offcanvas
+    await JSRuntime.InvokeVoidAsync("abrirOffCanvas", idFicha);
+    }
+
+    private async Task ControlCerrarOffcanvas()
+    {
+    await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
+    }
+
+    private void GuardarCambios()
+    {
+        if (vehiculoSeleccionado != null)
+        {
+            // Guardar cambios en la lista
+            var index = ListaGenerica?.FindIndex(v => v.Equals(vehiculoSeleccionado));
+            if (index.HasValue && index.Value >= 0)
+            {
+                ListaGenerica[index.Value] = (T)(object)vehiculoSeleccionado;
+            }
+
+            Console.WriteLine($"Se han guardado los cambios del vehículo con ID: {vehiculoSeleccionado.Id}");
+        }
+        ControlCerrarOffcanvas();
+    }
+
+    private void ConfirmarEliminar()
+    {
+        if (vehiculoSeleccionado != null)
+        {
+            ListaGenerica?.Remove((T)(object)vehiculoSeleccionado);
+            Console.WriteLine($"Se ha eliminado el vehículo con ID: {vehiculoSeleccionado.Id}");
+        }
+        ControlCerrarOffcanvas();
+    }
+
+    private void CancelarEliminar()
+    {
+        estaEliminando = false;
+        Console.WriteLine("Eliminación cancelada.");
+        ControlCerrarOffcanvas();
+    }
+}
