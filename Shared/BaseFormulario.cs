@@ -11,6 +11,7 @@ namespace BlazorApp1.Shared
         [Parameter] public EventCallback OnGuardarCambios { get; set; }
         [Parameter] public EventCallback OnEliminar { get; set; }
         [Parameter] public EventCallback OnCancelarEliminar { get; set; }
+        [Parameter] public EventCallback<bool> OnFormularioModificado { get; set; }
 
         public T? RegistroCompleto { get; set; }
 
@@ -63,6 +64,7 @@ namespace BlazorApp1.Shared
             {
                 // Asignamos el nuevo valor a la propiedad
                 propiedadInfo.SetValue(RegistroCompleto, Convert.ChangeType(nuevoValor, propiedadInfo.PropertyType));
+                OnFormularioModificado.InvokeAsync(true);
             }
         }
     }

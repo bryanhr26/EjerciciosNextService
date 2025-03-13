@@ -26,13 +26,26 @@ namespace BlazorApp1.Models
         public bool Visible { get; set; }
         public bool Habilitado { get; set; }
         public string? Ancho { get; set; }
+        public int Posicion { get; set; }
+        public string Titulo { get; set; }
+        public string Subtexto { get; set; }
 
-        public PropiedadesFormularioAttribute(bool visible = true, string ancho = "100%", bool habilitado = true)
+        public PropiedadesFormularioAttribute(bool visible = true, string ancho = "100%", bool habilitado = true, int posicion = 1, string titulo = "", string subtexto = "")
         {
             Visible = visible;
             Habilitado = habilitado;
             Ancho = ancho;
+            Posicion = posicion;
+            Titulo = titulo;
+            Subtexto = subtexto;
         }
+    }
+
+    public enum Pestanya
+    {
+        Uno,
+        Dos,
+        Tres 
     }
 
     public enum Accion
@@ -47,24 +60,24 @@ namespace BlazorApp1.Models
         public int Id { get; set; }
 
         [PropiedadTablaColumna("Marca del vehículo", true, 500)]
-        [PropiedadesFormulario(visible: true, ancho: "350px", habilitado:true)]
+        [PropiedadesFormulario(visible: true, ancho: "350px", habilitado:true, posicion: 1)]
         public string Marca { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Modelo del vehículo", true, 300)]
-        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, posicion: 2)]
         public string Modelo { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Matricula del vehículo", true, 200)]
-        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, posicion: 3)]
         public string Matricula { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Kilometros", true, 200)]
-        [PropiedadesFormulario(visible: true, habilitado: true)]
+        [PropiedadesFormulario(visible: true, habilitado: true, posicion: 4)]
         public int Kilometraje { get; set; }
 
         public string NumeroDeBastidor { get; set; } = string.Empty;
 
-        [PropiedadesFormulario(visible: false, ancho: "250px", habilitado:false)]
+        [PropiedadesFormulario(visible: false, ancho: "250px", habilitado:false, posicion: 5)]
         public string Color { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Acciones", true, 200, true)]

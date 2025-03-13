@@ -51,10 +51,12 @@
         @if (QuieroVerFormulario)
         {
             <FichaFormularioGenerica RegistroOrigenTabla="@RegistroSeleccionado"
-                ModoAccion="accionSeleccionada"
-                OnGuardarCambios="GuardarCambios"
-                OnEliminar="ConfirmarEliminar"
-                OnCancelarEliminar="CancelarEliminar">
+            ModoAccion="accionSeleccionada"
+            OnFormularioModificado="HandleFormularioModificado"
+            OnGuardarCambios="GuardarCambios"
+            OnEliminar="ConfirmarEliminar"
+            OnCancelarEliminar="CancelarEliminar"
+            >
             </FichaFormularioGenerica>
         }
 
@@ -64,6 +66,8 @@
 @code {
     [Parameter] public List<T>? ListaGenerica { get; set; }
 
+    private T? RegistroOriginal { get; set; }
+    private T? RegistroModificado { get; set; }
     private List<PropiedadesTablaColumna>? columnas;
     private T? RegistroSeleccionado;
     private string idFicha = "offcanvasVehiculo";
@@ -71,11 +75,18 @@
     private Accion accionSeleccionada;
     private bool estaEliminando = false;
     private bool QuieroVerFormulario = false;
+    private bool cambioGuardado = false;
+    private bool esModificado = false;
 
     protected override void OnInitialized()
     {
         // Obtener las columnas utilizando el método de la clase Utilidades
         columnas = Utilidades.ObtenerPropiedadesColumnas<Vehiculo>();
+    }
+
+    private void HandleFormularioModificado (bool modificado)
+    {
+        esModificado = modificado;
     }
 
     private void RealizarAccion(T item, Accion accion)
@@ -99,7 +110,6 @@
     private void Ver(T item)
     {
         // Lógica para ver el item
-        // Asignar el vehículo seleccionado para mostrar en la ficha lateral
         RegistroSeleccionado = item;
         OpenOffcanvas();
     }
@@ -122,13 +132,47 @@
 
     private async Task OpenOffcanvas()
     {
+        // Guardamos una copia del valor original cuando se abre el offcanvas
+        RegistroOriginal = (T)Activator.CreateInstance(typeof(T));
+        if (RegistroSeleccionado != null)
+        {
+            RegistroOriginal = (T)Activator.CreateInstance(typeof(T));
+            var propiedades = typeof(T).GetProperties();
+            foreach (var propiedad in propiedades)
+            {
+                var valorOriginal = propiedad.GetValue(RegistroSeleccionado);
+                propiedad.SetValue(RegistroOriginal, valorOriginal);
+            }
+        }
+
         //Llamar a la funcion JS para abrir Offcanvas
         QuieroVerFormulario = true;
+        cambioGuardado = false;
         await JSRuntime.InvokeVoidAsync("abrirOffCanvas", idFicha);
     }
 
     private async Task ControlCerrarOffcanvas()
     {
+        if (esModificado) //Si hay modificaciones
+        {
+            var confirmacion = await JSRuntime.InvokeAsync<bool>("confirm", "¿Tienes cambios no guardados. ¿Estás seguro de que quieres cerrar sin guardar?");
+
+            if (!confirmacion)
+            {
+                return; // Si el usuario cancela el cierre, no hacemos nada
+            }
+
+            // Si el usuario acepta, restauramos el valor original
+            if (RegistroOriginal != null && RegistroSeleccionado != null)
+            {
+                var propiedades = typeof(T).GetProperties();
+                foreach (var propiedad in propiedades)
+                {
+                    var valorOriginal = propiedad.GetValue(RegistroOriginal);
+                    propiedad.SetValue(RegistroSeleccionado, valorOriginal);
+                }
+            }
+        }
         estaEliminando = false;
         QuieroVerFormulario = false;
         await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
@@ -136,17 +180,22 @@
 
     private void GuardarCambios()
     {
-        if (RegistroSeleccionado != null)
+        if (esModificado)
         {
-            // Guardar cambios en la lista
-            var index = ListaGenerica?.FindIndex(v => v.Equals(RegistroSeleccionado));
-            if (index.HasValue && index.Value >= 0)
+            if (RegistroSeleccionado != null)
             {
-                ListaGenerica[index.Value] = (T)(object)RegistroSeleccionado;
-            }
+                // Guardar cambios en la lista
+                var index = ListaGenerica?.FindIndex(v => v.Equals(RegistroSeleccionado));
+                if (index.HasValue && index.Value >= 0)
+                {
+                    ListaGenerica[index.Value] = (T)(object)RegistroSeleccionado;
+                }
 
+                cambioGuardado = true;
+                esModificado = false;
+            }
+            ControlCerrarOffcanvas();    
         }
-        ControlCerrarOffcanvas();
     }
 
     private void ConfirmarEliminar()
