@@ -46,21 +46,26 @@
     </tbody>
 </table>
 
-<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" AnchoOffcanvas="800px" IdOffcanvas="@idFicha" TituloOffcanvas="@tituloFicha">
-    <Resultado>
+<BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" 
+                                         AnchoOffcanvas="800px" 
+                                         IdOffcanvas="@idFicha" 
+                                         TituloOffcanvas="@tituloFicha"
+                                         OnPestanyaSeleccionadaChanged="OnPestanyaSeleccionadaChanged"
+>
+    <FormularioPestanya1>
         @if (QuieroVerFormulario)
         {
             <FichaFormularioGenerica RegistroOrigenTabla="@RegistroSeleccionado"
-            ModoAccion="accionSeleccionada"
-            OnFormularioModificado="HandleFormularioModificado"
-            OnGuardarCambios="GuardarCambios"
-            OnEliminar="ConfirmarEliminar"
-            OnCancelarEliminar="CancelarEliminar"
+                                     ModoAccion="accionSeleccionada"
+                                     OnFormularioModificado="HandleFormularioModificado"
+                                     OnGuardarCambios="GuardarCambios"
+                                     OnEliminar="ConfirmarEliminar"
+                                     OnCancelarEliminar="CancelarEliminar"
+                                     PestanyaSeleccionada="pestanyaSeleccionada"
             >
             </FichaFormularioGenerica>
         }
-
-    </Resultado>
+    </FormularioPestanya1>
 </BlazorApp1.Shared.Componentes.Offcanvas>
 
 @code {
@@ -73,6 +78,7 @@
     private string idFicha = "offcanvasVehiculo";
     private string tituloFicha = "Detalles del Vehículo";
     private Accion accionSeleccionada;
+    private int pestanyaSeleccionada = 1;
     private bool estaEliminando = false;
     private bool QuieroVerFormulario = false;
     private bool cambioGuardado = false;
@@ -196,6 +202,12 @@
             }
             ControlCerrarOffcanvas();    
         }
+    }
+
+    private void OnPestanyaSeleccionadaChanged(int nuevaPestanya)
+    {
+        pestanyaSeleccionada = nuevaPestanya;
+
     }
 
     private void ConfirmarEliminar()

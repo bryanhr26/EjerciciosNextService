@@ -13,29 +13,37 @@
             {
                 @foreach (var atributo in Atributos)
                 {
-                    var valor = atributo.GetValue(RegistroOrigenTabla);
+
                     var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
 
                     if (propiedadesFormulario != null)
                     {
-                        <div>
-                            @{
-                                var tipoLabel = ObtenerTipoLabel(atributo);
-                                var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
-                            }
+                        var pestanyaValor = propiedadesFormulario.Pestanya;
 
-                            @if (propiedadesFormulario.Visible)
-                            {
-                                <label><strong>@atributo.Name:</strong></label>
-                                <input type="@tipoLabel"
-                                style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
-                                disabled="@deshabilitado"
-                                value="@valor"
-                                @onchange="(e) => ActualizarValor(e, atributo.Name)" />
-                            }
-                        </div>
+                        // Condición para filtrar según el valor de Pestanya
+                        if (pestanyaValor == PestanyaSeleccionada)
+                        {
+                            var valor = atributo.GetValue(RegistroOrigenTabla);
 
+                            <div>
+                                @{
+                                    var tipoLabel = ObtenerTipoLabel(atributo);
+                                    var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
+                                }
+
+                                @if (propiedadesFormulario.Visible)
+                                {
+                                    <label><strong>@atributo.Name:</strong></label>
+                                    <input type="@tipoLabel"
+                                    style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
+                                    disabled="@deshabilitado"
+                                    value="@valor"
+                                    @onchange="(e) => ActualizarValor(e, atributo.Name)" />
+                                }
+                            </div>
+                        }
                     }
+
                 }
             }
         </div>
@@ -58,6 +66,8 @@
 </div>
 
 @code {
+    [Parameter] public int PestanyaSeleccionada { get; set; }
+
     //ATERIBUTOS FORM:
     //1. CON UN ENUM DECIRLE AL ATRIBUTO (VEHICULO) A QUE PESTAÑA PERTENECE (1,2,3....)
     // METER AL ATRIBUTO UN STRING DE MARGENES

@@ -13,109 +13,109 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = BlazorApp1
 build_property.RootNamespace = BlazorApp1
-build_property.ProjectDir = C:\Users\Bryan\source\repos\BlazorApp1\
+build_property.ProjectDir = C:\Users\Usuario\Source\Repos\EjerciciosNextService\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Bryan\source\repos\BlazorApp1
+build_property.MSBuildProjectDirectory = C:\Users\Usuario\Source\Repos\EjerciciosNextService
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/App.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Cascading_page.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Cascading_page.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FzY2FkaW5nX3BhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Component.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Component.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Counter.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Home.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Multiplo.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Multiplo.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTXVsdGlwbG8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Offcanvas_page.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Offcanvas_page.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT2ZmY2FudmFzX3BhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Operaciones.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Operaciones.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3BlcmFjaW9uZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Reflection_page.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Reflection_page.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVmbGVjdGlvbl9wYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Vehiculos_page.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Vehiculos_page.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmVoaWN1bG9zX3BhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Pages/Weather.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/Categorias.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/Categorias.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXENhdGVnb3JpYXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/ColorBloque.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/ColorBloque.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXENvbG9yQmxvcXVlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/FichaFormularioGenerica.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/FichaFormularioGenerica.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXEZpY2hhRm9ybXVsYXJpb0dlbmVyaWNhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/InputBind.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/InputBind.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXElucHV0QmluZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/InputCambiaValor.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/InputCambiaValor.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXElucHV0Q2FtYmlhVmFsb3IucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/InputComponente.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/InputComponente.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXElucHV0Q29tcG9uZW50ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/Offcanvas.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/Offcanvas.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXE9mZmNhbnZhcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/Productos.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/Productos.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXFByb2R1Y3Rvcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/SelectorOperacion.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/SelectorOperacion.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXFNlbGVjdG9yT3BlcmFjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Shared/Componentes/TablaGenerica.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Shared/Componentes/TablaGenerica.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudGVzXFRhYmxhR2VuZXJpY2EucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/_Imports.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Layout/MainLayout.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-5383j6hyu8
 
-[C:/Users/Bryan/source/repos/BlazorApp1/Layout/NavMenu.razor]
+[C:/Users/Usuario/Source/Repos/EjerciciosNextService/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-da4la3n260
