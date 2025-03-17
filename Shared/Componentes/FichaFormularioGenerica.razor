@@ -6,113 +6,152 @@
 
 <div class="ficha-vehiculo" style="height: 100%; display: @(RegistroCompleto == null ? "none" : "block");">
 
-    @if (RegistroCompleto != null)
-    {
-        <div class="datos-vehiculo">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                @if(Lista_Tabulaciones != null)
-                {
-                    foreach (var tab in Lista_Tabulaciones)
-                    {
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link @(PestanyaSeleccionada == tab.ID ? "active" : "")" 
-                                    id="home-tab" 
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#tabContent-@tab.ID"
-                                    type="button" 
-                                    role="tab"
-                                    aria-controls="tabContent-@tab.ID"
-                                    aria-selected="@(PestanyaSeleccionada == tab.ID)" 
-                                    @onclick="() => CambiarPestanya(tab.ID)">
-                                @tab.Nombre
-                            </button>
-                        </li>
-                    }
-                }
-            </ul>
+	@if (RegistroCompleto != null)
+	{
+		<div class="datos-vehiculo">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				@if (TieneTabulaciones)
+				{
+					foreach (var tab in Lista_Tabulaciones!)
+					{
+						<li class="nav-item" role="presentation">
+							<button class="nav-link @(PestanyaSeleccionada == tab.ID ? "active" : "")"
+							id="home-tab"
+							data-bs-toggle="tab"
+							data-bs-target="#tabContent-@tab.ID"
+							type="button"
+							role="tab"
+							aria-controls="tabContent-@tab.ID"
+							aria-selected="@(PestanyaSeleccionada == tab.ID)"
+							@onclick="() => CambiarPestanya(tab.ID)">
+								@tab.Nombre
+							</button>
+						</li>
+					}
+				}
+			</ul>
 
-            <div class="tab-content" id="myTabContent">
-                @if (Lista_Tabulaciones != null)
-                {
-                    @foreach (var tab in Lista_Tabulaciones)
-                    {
-                        <div class="tab-pane fade @(PestanyaSeleccionada == tab.ID ? "active show" : "")" 
-                             id="home" 
-                             role="tabpanel" 
-                             aria-labelledby="tab-@tab.ID" 
-                             style="padding-top: 20px;">
+			<div class="tab-content" id="myTabContent">
+				@if (TieneTabulaciones)
+				{
+					@foreach (var tab in Lista_Tabulaciones!)
+					{
+						<div class="tab-pane fade @(PestanyaSeleccionada == tab.ID ? "active show" : "")"
+						id="home"
+						role="tabpanel"
+						aria-labelledby="tab-@tab.ID"
+						style="padding-top: 20px;">
 
-                            @if (Atributos != null && Atributos.Count() > 0)
-                            {
-                                @foreach (var atributo in Atributos)
-                                {
-                                    var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
+							@if (Atributos != null && Atributos.Count() > 0)
+							{
+								@foreach (var atributo in Atributos)
+								{
+									var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
 
-                                    if (propiedadesFormulario != null)
-                                    {
-                                        var pestanyaValor = propiedadesFormulario.Pestanya;
+									if (propiedadesFormulario != null)
+									{
+										var pestanyaValor = propiedadesFormulario.Pestanya;
 
-                                        // Condición para filtrar según el valor de Pestanya
-                                        if (pestanyaValor == tab.ID)
-                                        {
-                                            var valor = atributo.GetValue(RegistroCompleto);
+										// Condición para filtrar según el valor de Pestanya
+										if (pestanyaValor == tab.ID)
+										{
+											var valor = atributo.GetValue(RegistroCompleto);
 
-                                            <div>
-                                                @{
-                                                    var tipoLabel = ObtenerTipoLabel(atributo);
-                                                    var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
-                                                }
+											<div>
+												@{
+													var tipoLabel = ObtenerTipoLabel(atributo);
+													var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
+												}
 
-                                                @if (propiedadesFormulario.Visible)
-                                                {
-                                                    <label><strong>@atributo.Name:</strong></label>
-                                                    <input type="@tipoLabel"
-                                                    style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
-                                                    disabled="@deshabilitado"
-                                                    value="@valor"
-                                                    @onchange="(e) => ActualizarValor(e, atributo.Name)" />
-                                                }
-                                            </div>
-                                        }
-                                    }
-                                }
-                            }
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-        <div class="botones-accion" style="padding-top: 20px;">
-            @if (ModoAccion == Accion.Editar)
-            {
-                <button @onclick="OnGuardarCambios">Guardar cambios</button>
-            }
+												@if (propiedadesFormulario.Visible)
+												{
+													<label><strong>@atributo.Name:</strong></label>
+													<input type="@tipoLabel"
+													style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
+													disabled="@deshabilitado"
+													value="@valor"
+													@onchange="(e) => ActualizarValor(e, atributo.Name)" />
+												}
+											</div>
+										}
+									}
+								}
+							}
+						</div>
+					}
+				}
 
-            @if (ModoAccion == Accion.Eliminar)
-            {
-                <div>
-                    <p>¿Estás seguro de que deseas eliminar este vehículo?</p>
-                    <button @onclick="OnEliminar">Eliminar</button>
-                    <button @onclick="OnCancelarEliminar">Cancelar</button>
-                </div>
-            }
-        </div>
-    }
+				@* Si la lista de tabulaciones es null o no existe nos enseñara todos los atributos. *@
+				@if (!TieneTabulaciones)
+				{
+					@if (Atributos != null && Atributos.Count() > 0)
+					{
+						@foreach (var atributo in Atributos)
+						{
+							var valor = atributo.GetValue(RegistroOrigenTabla);
+							var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
+
+							if (propiedadesFormulario != null)
+							{
+								<div>
+									@{
+										var tipoLabel = ObtenerTipoLabel(atributo);
+										var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
+									}
+
+									@if (propiedadesFormulario.Visible)
+									{
+										<label><strong>@atributo.Name:</strong></label>
+										<input type="@tipoLabel"
+										style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
+										disabled="@deshabilitado"
+										value="@valor"
+										@onchange="(e) => ActualizarValor(e, atributo.Name)" />
+									}
+								</div>
+
+							}
+						}
+					}
+				}
+			</div>
+		</div>
+		<div class="botones-accion" style="padding-top: 20px;">
+			@if (ModoAccion == Accion.Editar)
+			{
+				<button @onclick="OnGuardarCambios">Guardar cambios</button>
+			}
+
+			@if (ModoAccion == Accion.Eliminar)
+			{
+				<div>
+					<p>¿Estás seguro de que deseas eliminar este vehículo?</p>
+					<button @onclick="OnEliminar">Eliminar</button>
+					<button @onclick="OnCancelarEliminar">Cancelar</button>
+				</div>
+			}
+		</div>
+	}
 </div>
 
 @code {
-    [Parameter] public List<Tabulacion>? Lista_Tabulaciones { get; set; }
-    [Parameter] public PestanyaEnum PestanyaSeleccionada { get; set; }
+	[Parameter] public List<Tabulacion>? Lista_Tabulaciones { get; set; }
+	[Parameter] public PestanyaEnum PestanyaSeleccionada { get; set; }
+	[Parameter] public EventCallback<PestanyaEnum> OnCambiarPestanya { get; set; }
 
-    private async Task CambiarPestanya(PestanyaEnum pestanya)
-    {
-        PestanyaSeleccionada = pestanya;
-    }
-    //ATERIBUTOS FORM:
-    //1. CON UN ENUM DECIRLE AL ATRIBUTO (VEHICULO) A QUE PESTAÑA PERTENECE (1,2,3....)
-    // METER AL ATRIBUTO UN STRING DE MARGENES
-    //2. CREAR EN HTML Y TAL, LAS PESTAÑAS
-    //3. POR PARAMETRO DECIRLE EL NUMERO DE PESTAÑAS, DE MOMENTO EL NOMBRE DE LAS PESTAÑASS SERA SU NUMERO
-    //4. FILTRAR EL CONTENIDO DE CADA PESTAÑA SEGUN EL ATRIBUTO DE LA PESTAÑA A LA QUE PERTENECE
+	private bool TieneTabulaciones => Lista_Tabulaciones != null && Lista_Tabulaciones.Any();
 
+	private async Task CambiarPestanya(PestanyaEnum pestanya)
+	{
+		PestanyaSeleccionada = pestanya;
+		await OnCambiarPestanya.InvokeAsync(PestanyaSeleccionada);
+	}
+	//ATERIBUTOS FORM:
+	//1. CON UN ENUM DECIRLE AL ATRIBUTO (VEHICULO) A QUE PESTAÑA PERTENECE (1,2,3....)
+	// METER AL ATRIBUTO UN STRING DE MARGENES
+	//2. CREAR EN HTML Y TAL, LAS PESTAÑAS
+	//3. POR PARAMETRO DECIRLE EL NUMERO DE PESTAÑAS, DE MOMENTO EL NOMBRE DE LAS PESTAÑASS SERA SU NUMERO
+	//4. FILTRAR EL CONTENIDO DE CADA PESTAÑA SEGUN EL ATRIBUTO DE LA PESTAÑA A LA QUE PERTENECE
+
+	// Si no tienen TABULACIONES que se muestre todo en pantalla, ahora mismo esta hecho que solo se muestra si tiene tabulaciones
 }

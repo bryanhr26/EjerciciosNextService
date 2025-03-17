@@ -21,8 +21,33 @@ namespace BlazorApp1.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            RegistroCompleto = RegistroOrigenTabla;
+            RegistroCompleto = ClonarValoresObjetoGenerico(RegistroOrigenTabla);
             Atributos = typeof(T).GetProperties();
+        }
+
+        public T ClonarValoresObjetoGenerico<T>(T original)
+        {
+            // Crear una nueva instancia del mismo tipo de T
+            T copia = Activator.CreateInstance<T>();
+
+            // Obtener todas las propiedades públicas de la clase T
+            PropertyInfo[] propiedades = typeof(T).GetProperties();
+
+            // Recorrer todas las propiedades y copiar los valores
+            foreach (var propiedad in propiedades)
+            {
+                // Asegurarse de que la propiedad sea pública y tenga un setter
+                if (propiedad.CanWrite)
+                {
+                    // Obtener el valor de la propiedad del objeto original
+                    var valorOriginal = propiedad.GetValue(original);
+
+                    // Establecer el mismo valor en la propiedad del objeto copia
+                    propiedad.SetValue(copia, valorOriginal);
+                }
+            }
+
+            return copia;
         }
 
         public PropiedadesFormularioAttribute? ObtenerDatosFormularioAtributo(PropertyInfo atributo)
