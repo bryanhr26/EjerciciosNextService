@@ -4,48 +4,83 @@
 @typeparam T
 @inherits BaseFormulario<T>
 
-<div class="ficha-vehiculo" style="height: 100%; display: @(RegistroOrigenTabla == null ? "none" : "block");">
+<div class="ficha-vehiculo" style="height: 100%; display: @(RegistroCompleto == null ? "none" : "block");">
 
-    @if (RegistroOrigenTabla != null)
+    @if (RegistroCompleto != null)
     {
         <div class="datos-vehiculo">
-            @if (Atributos != null && Atributos.Count() > 0)
-            {
-                @foreach (var atributo in Atributos)
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                @if(Lista_Tabulaciones != null)
                 {
-
-                    var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
-
-                    if (propiedadesFormulario != null)
+                    foreach (var tab in Lista_Tabulaciones)
                     {
-                        var pestanyaValor = propiedadesFormulario.Pestanya;
-
-                        // Condición para filtrar según el valor de Pestanya
-                        if (pestanyaValor == PestanyaSeleccionada)
-                        {
-                            var valor = atributo.GetValue(RegistroOrigenTabla);
-
-                            <div>
-                                @{
-                                    var tipoLabel = ObtenerTipoLabel(atributo);
-                                    var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
-                                }
-
-                                @if (propiedadesFormulario.Visible)
-                                {
-                                    <label><strong>@atributo.Name:</strong></label>
-                                    <input type="@tipoLabel"
-                                    style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
-                                    disabled="@deshabilitado"
-                                    value="@valor"
-                                    @onchange="(e) => ActualizarValor(e, atributo.Name)" />
-                                }
-                            </div>
-                        }
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link @(PestanyaSeleccionada == tab.ID ? "active" : "")" 
+                                    id="home-tab" 
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#tabContent-@tab.ID"
+                                    type="button" 
+                                    role="tab"
+                                    aria-controls="tabContent-@tab.ID"
+                                    aria-selected="@(PestanyaSeleccionada == tab.ID)" 
+                                    @onclick="() => CambiarPestanya(tab.ID)">
+                                @tab.Nombre
+                            </button>
+                        </li>
                     }
-
                 }
-            }
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                @if (Lista_Tabulaciones != null)
+                {
+                    @foreach (var tab in Lista_Tabulaciones)
+                    {
+                        <div class="tab-pane fade @(PestanyaSeleccionada == tab.ID ? "active show" : "")" 
+                             id="home" 
+                             role="tabpanel" 
+                             aria-labelledby="tab-@tab.ID" 
+                             style="padding-top: 20px;">
+
+                            @if (Atributos != null && Atributos.Count() > 0)
+                            {
+                                @foreach (var atributo in Atributos)
+                                {
+                                    var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
+
+                                    if (propiedadesFormulario != null)
+                                    {
+                                        var pestanyaValor = propiedadesFormulario.Pestanya;
+
+                                        // Condición para filtrar según el valor de Pestanya
+                                        if (pestanyaValor == tab.ID)
+                                        {
+                                            var valor = atributo.GetValue(RegistroCompleto);
+
+                                            <div>
+                                                @{
+                                                    var tipoLabel = ObtenerTipoLabel(atributo);
+                                                    var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
+                                                }
+
+                                                @if (propiedadesFormulario.Visible)
+                                                {
+                                                    <label><strong>@atributo.Name:</strong></label>
+                                                    <input type="@tipoLabel"
+                                                    style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
+                                                    disabled="@deshabilitado"
+                                                    value="@valor"
+                                                    @onchange="(e) => ActualizarValor(e, atributo.Name)" />
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    }
+                }
+            </div>
         </div>
         <div class="botones-accion" style="padding-top: 20px;">
             @if (ModoAccion == Accion.Editar)
@@ -66,8 +101,13 @@
 </div>
 
 @code {
-    [Parameter] public int PestanyaSeleccionada { get; set; }
+    [Parameter] public List<Tabulacion>? Lista_Tabulaciones { get; set; }
+    [Parameter] public PestanyaEnum PestanyaSeleccionada { get; set; }
 
+    private async Task CambiarPestanya(PestanyaEnum pestanya)
+    {
+        PestanyaSeleccionada = pestanya;
+    }
     //ATERIBUTOS FORM:
     //1. CON UN ENUM DECIRLE AL ATRIBUTO (VEHICULO) A QUE PESTAÑA PERTENECE (1,2,3....)
     // METER AL ATRIBUTO UN STRING DE MARGENES

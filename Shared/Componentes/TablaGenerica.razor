@@ -49,14 +49,13 @@
 <BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas" 
                                          AnchoOffcanvas="800px" 
                                          IdOffcanvas="@idFicha" 
-                                         TituloOffcanvas="@tituloFicha"
-                                         OnPestanyaSeleccionadaChanged="OnPestanyaSeleccionadaChanged"
->
-    <FormularioPestanya1>
+                                         TituloOffcanvas="@tituloFicha">
+    <Formulario>
         @if (QuieroVerFormulario)
         {
             <FichaFormularioGenerica RegistroOrigenTabla="@RegistroSeleccionado"
                                      ModoAccion="accionSeleccionada"
+                                     Lista_Tabulaciones="@Lista_Tabulaciones"
                                      OnFormularioModificado="HandleFormularioModificado"
                                      OnGuardarCambios="GuardarCambios"
                                      OnEliminar="ConfirmarEliminar"
@@ -65,11 +64,13 @@
             >
             </FichaFormularioGenerica>
         }
-    </FormularioPestanya1>
+    </Formulario>
 </BlazorApp1.Shared.Componentes.Offcanvas>
 
 @code {
     [Parameter] public List<T>? ListaGenerica { get; set; }
+    [Parameter] public List<Tabulacion>? Lista_Tabulaciones { get; set; }
+    [Parameter] public PestanyaEnum pestanyaSeleccionada { get; set; } = PestanyaEnum.Uno;
 
     private T? RegistroOriginal { get; set; }
     private T? RegistroModificado { get; set; }
@@ -78,7 +79,6 @@
     private string idFicha = "offcanvasVehiculo";
     private string tituloFicha = "Detalles del Vehículo";
     private Accion accionSeleccionada;
-    private int pestanyaSeleccionada = 1;
     private bool estaEliminando = false;
     private bool QuieroVerFormulario = false;
     private bool cambioGuardado = false;
@@ -202,12 +202,6 @@
             }
             ControlCerrarOffcanvas();    
         }
-    }
-
-    private void OnPestanyaSeleccionadaChanged(int nuevaPestanya)
-    {
-        pestanyaSeleccionada = nuevaPestanya;
-
     }
 
     private void ConfirmarEliminar()

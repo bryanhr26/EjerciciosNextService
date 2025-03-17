@@ -1,86 +1,33 @@
 ﻿using System;
 using System.Reflection;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static BlazorApp1.Models.Tabla;
 namespace BlazorApp1.Models
 {
-    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-    public sealed class PropiedadTablaColumnaAttribute : Attribute
-    {
-        public string Nombre { get; }
-        public bool Visible { get; }
-        public int Ancho { get; }
-        public bool EsAccion { get; }
-
-        public PropiedadTablaColumnaAttribute(string nombre, bool visible = true, int ancho = 100, bool esAccion = false)
-        {
-            Nombre = nombre;
-            Visible = visible;
-            Ancho = ancho;
-            EsAccion = esAccion;
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-    public sealed class PropiedadesFormularioAttribute : Attribute
-    {
-        public bool Visible { get; set; }
-        public bool Habilitado { get; set; }
-        public string? Ancho { get; set; }
-        public int Pestanya { get; set; }
-        public string Titulo { get; set; }
-        public string Subtexto { get; set; }
-        public string Margenes { get; set; }
-
-        public PropiedadesFormularioAttribute(bool visible = true, string ancho = "100%", bool habilitado = true, int pestanya = 1, string titulo = "", string subtexto = "", string margenes =  "")
-        {
-            Visible = visible;
-            Habilitado = habilitado;
-            Ancho = ancho;
-            Pestanya = pestanya;
-            Titulo = titulo;
-            Subtexto = subtexto;
-            Margenes = margenes;
-        }
-    }
-
-    public enum Pestanya
-    {
-        Uno = 1,
-        Dos = 2,
-        Tres = 3 
-    }
-
-    public enum Accion
-    {
-        Ver,
-        Editar,
-        Eliminar
-    }
-
     public class Vehiculo
     {
         public int Id { get; set; }
 
         [PropiedadTablaColumna("Marca del vehículo", true, 500)]
-        [PropiedadesFormulario(visible: true, ancho: "350px", habilitado:true, pestanya: 1)]
+        [PropiedadesFormulario(visible: true, ancho: "350px", habilitado:true, pestanya: PestanyaEnum.Uno)]
         public string Marca { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Modelo del vehículo", true, 300)]
-        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, pestanya: 1)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, pestanya: PestanyaEnum.Uno)]
         public string Modelo { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Matricula del vehículo", true, 200)]
-        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, pestanya: 1)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, pestanya: PestanyaEnum.Uno)]
         public string Matricula { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Kilometros", true, 200)]
-        [PropiedadesFormulario(visible: true, habilitado: true, pestanya: 2)]
+        [PropiedadesFormulario(visible: true, habilitado: true, pestanya: PestanyaEnum.Dos)]
         public int Kilometraje { get; set; }
 
-        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado: false, pestanya: 3)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado: false, pestanya: PestanyaEnum.Tres)]
         public string NumeroDeBastidor { get; set; } = string.Empty;
 
-        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, pestanya: 2)]
+        [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, pestanya: PestanyaEnum.Dos)]
         public string Color { get; set; } = string.Empty;
 
         [PropiedadTablaColumna("Acciones", true, 200, true)]

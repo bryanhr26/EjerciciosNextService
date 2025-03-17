@@ -1,6 +1,7 @@
 ﻿using BlazorApp1.Models;
 using Microsoft.AspNetCore.Components;
 using System.Reflection;
+using static BlazorApp1.Models.Tabla;
 
 namespace BlazorApp1.Shared
 {

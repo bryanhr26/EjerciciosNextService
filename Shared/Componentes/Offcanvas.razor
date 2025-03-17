@@ -6,59 +6,22 @@
         <button @onclick="OnCerrarOffcanvas" type="button" class="btn-close" style="background-color: white; opacity: 90;" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link @(PestanyaSeleccionada == 1 ? "active" : "")" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="@(PestanyaSeleccionada == 1)" @onclick="() => CambiarPestanya(1)">Pestanya 1</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link @(PestanyaSeleccionada == 2 ? "active" : "")" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="@(PestanyaSeleccionada == 2)" @onclick="() => CambiarPestanya(2)">Pestanya 2</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link @(PestanyaSeleccionada == 3 ? "active" : "")" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="@(PestanyaSeleccionada == 3)" @onclick="() => CambiarPestanya(3)">Pestanya 3</button>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show @(PestanyaSeleccionada == 1 ? "active" : "")" id="home" role="tabpanel" aria-labelledby="home-tab" style="padding-top: 20px;">
-                @FormularioPestanya1
-            </div>
-            <div class="tab-pane fade show @(PestanyaSeleccionada == 2 ? "active" : "")" id="profile" role="tabpanel" aria-labelledby="profile-tab" style="padding-top: 20px;">
-                @FormularioPestanya1
-            </div>
-            <div class="tab-pane fade show @(PestanyaSeleccionada == 3 ? "active" : "")" id="contact" role="tabpanel" aria-labelledby="contact-tab" style="padding-top: 20px;">
-                @FormularioPestanya1
-            </div>
-        </div>
+        @Formulario
     </div>
 </div>
 
 @code {
     [Parameter] public EventCallback CerrarOffcanvas { get; set; }
     [Parameter] public string? AnchoOffcanvas { get; set; }
-    [Parameter] public RenderFragment? FormularioPestanya1 { get; set; }
-    [Parameter] public RenderFragment? FormularioPestanya2 { get; set; }
-    [Parameter] public RenderFragment? FormularioPestanya3 { get; set; }
     [Parameter] public RenderFragment? Formulario { get; set; }
-    [Parameter] public RenderFragment? Formulario2 { get; set; }
     [Parameter] public string? IdOffcanvas { get; set; }
     [Parameter] public string? TituloOffcanvas { get; set; }
-    [Parameter] public EventCallback<int> OnPestanyaSeleccionadaChanged { get; set; }
-    [Parameter] public int PestanyaSeleccionada { get; set; } = 1;
-
-    // Cambiar la pestaña activa según la selección
-    private async Task CambiarPestanya(int pestanya)
-    {
-        PestanyaSeleccionada = pestanya;
-        await OnPestanyaSeleccionadaChanged.InvokeAsync(PestanyaSeleccionada);
-
-    }
 
     private async Task OnCerrarOffcanvas()
     {
         await CerrarOffcanvas.InvokeAsync();
     }
 }
-
-
 
 @* Crear parametro RenderFragment llamado Formulario y pasarle la pagina operaciones
 Hacer que el tamaño se selecione desde la pagina 

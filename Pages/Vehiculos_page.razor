@@ -3,8 +3,7 @@
 @using BlazorApp1.Shared.Componentes
 @using BlazorApp1.Models
 
-
-<BlazorApp1.Shared.Componentes.TablaGenerica ListaGenerica="vehiculos">
+<BlazorApp1.Shared.Componentes.TablaGenerica Lista_Tabulaciones="@tabs" ListaGenerica="vehiculos">
 
 </BlazorApp1.Shared.Componentes.TablaGenerica>
 
@@ -20,6 +19,7 @@
     [CascadingParameter] public Carrito? carrito { get; set; }
 
     private List<Vehiculo> vehiculos = new List<Vehiculo>();
+    private List<Tabulacion> tabs = new List<Tabulacion>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -29,6 +29,25 @@
         {
             Console.WriteLine("No se encontraron vehículos o la respuesta es nula.");
         }
+
+        tabs = new()
+        {
+            new()
+            {
+                ID = PestanyaEnum.Uno,
+                Nombre = "General"
+            },
+            new()
+            {
+                ID = PestanyaEnum.Dos,
+                Nombre = "Datos Personales"
+            },
+            new()
+            {
+                ID = PestanyaEnum.Tres,
+                Nombre = "Observaciones"
+            }
+        };
     }
 
 }
