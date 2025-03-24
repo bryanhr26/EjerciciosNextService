@@ -1,0 +1,122 @@
+﻿/* ========== TABLA ========== */
+.contenedor-tabla {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    overflow-x: auto;
+    white-space: nowrap;
+    background-color: var(--ColorFondoPaginaPrincipal);
+    width: 100%;
+}
+
+.thead {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+
+.tbody {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+
+.boton-accion {
+    margin: 3px;
+    font-size: 18px;
+    color: black;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding-left: 3px;
+    padding-top: 3px;
+}
+
+.tabla-generica tr:hover {
+    cursor: pointer;
+    --bs-table-bg: #edecec;
+}
+
+.tabla-generica tr.fila-seleccionada {
+    --bs-table-bg: #e4e4e4;
+    color: #2a2a2a !important;
+}
+
+/* ========== FORMULARIO ========== */
+.contenedor-notab {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.valorAtributosFormBool {
+    display: inline;
+    flex: 1 1 100%
+}
+
+.valorAtributoForm {
+    display: grid;
+    flex-direction: row;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+.ns-input-clear {
+    background: inherit;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+}
+
+.botones-accion {
+    text-align: right;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: .3rem;
+}
+
+.boton-cancelar {
+    border-radius: 5px;
+}
+
+.boton-guardar {
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+}
+
+.boton-eliminar {
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+}
+
+.input-group {
+    border: 2px solid #d2d2d2;
+    border-radius: 5px;
+}
+
+    .input-group input {
+        padding: 1px 5px;
+        border-width: 0;
+        min-width: 0;
+        width: 100%;
+        border-radius: .25rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+        .input-group input:focus,
+        .input-group input:focus-visible,
+        .input-group input:focus-within
+        {
+            outline: none;
+        }

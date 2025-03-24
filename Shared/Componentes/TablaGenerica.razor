@@ -1,67 +1,93 @@
-﻿@using BlazorApp1.Models
-@using System.Reflection
+﻿@using System.Reflection
+@using BlazorApp1.Models
+@using static BlazorApp1.Models.AtributosTabla
 @inject IJSRuntime JSRuntime
 
 @typeparam T
 
 <h3>Lista de Vehículos</h3>
-
-<table class="tabla-vehiculos">
-	<thead style="background-color: rgb(7 27 69); color: white;">
-		<tr>
-			@foreach (var columna in columnas)
-			{
-				if (columna.Visible)
-				{
-					<th style="width: @(columna.Ancho.ToString() + "px");">@columna.Nombre</th>
-				}
-			}
-		</tr>
-	</thead>
-	<tbody style="background-color: gainsboro;">
-		@foreach (var item in ListaGenerica)
-		{
+<div class="contenedor-tabla">
+	<table class="table tabla-generica">
+		<thead class="thead">
 			<tr>
 				@foreach (var columna in columnas)
 				{
 					if (columna.Visible)
 					{
-						if (columna.EsAccion)
-						{
-							<td style="width: @(columna.Ancho.ToString() + "px");">
-								<button @onclick="() => RealizarAccion(item, Accion.Ver)">Ver</button>
-								<button @onclick="() => RealizarAccion(item, Accion.Editar)">Editar</button>
-								<button @onclick="() => RealizarAccion(item, Accion.Eliminar)">Eliminar</button>
-							</td>
-						}
-						else
-						{
-							var prop = typeof(T).GetProperty(columna.PropiedadModelo);
-							<td style="width: @(columna.Ancho.ToString() + "px");">@prop.GetValue(item)</td>
-						}
+						<th style="width: @(columna.Ancho.ToString() + "px" ); text-align: @(columna.AlineacionTexto);">@columna.Nombre</th>
 					}
 				}
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody class="tbody">
+			@foreach (var item in ListaGenerica)
+			{
+				<tr @onclick="() => SeleccionarFila(item)" @ondblclick="() => RealizarAccion(item, Accion.Editar)" class="@ObtenerClaseFila(item)">
+					@foreach (var columna in columnas)
+					{
+						if (columna.Visible)
+						{
+							if (columna.EsAccion)
+							{
+								<td style="width: @(columna.Ancho.ToString() + "px");">
+									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Ver)">
+										<i class="fas fa-eye"></i>
+									</span>
+									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Editar)">
+										<i class="fas fa-pencil-alt"></i>
+									</span>
+									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Eliminar)">
+										<i class="fas fa-trash-alt"></i>
+									</span>
+								</td>
+							}
+							else
+							{
+								var prop = typeof(T).GetProperty(columna.PropiedadModelo);
+								var valor = prop?.GetValue(item);
+
+								<td style="width: @(columna.Ancho.ToString() + "px" ); text-align: @(columna.AlineacionTexto);">
+									@if (valor is bool boolValor)
+									{
+										if (boolValor)
+										{
+											<div style="text-align: center;"><i class="fas fa-check" style="font-size: 18px; color: black; "></i></div>
+										}
+									}
+									else
+									{
+										@valor
+									}
+
+								</td>
+							}
+						}
+					}
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+
 
 <BlazorApp1.Shared.Componentes.Offcanvas CerrarOffcanvas="@ControlCerrarOffcanvas"
-										 AnchoOffcanvas="800px"
-										 IdOffcanvas="@idFicha"
-										 TituloOffcanvas="@tituloFicha">
+AnchoOffcanvas="800px"
+IdOffcanvas="@idFicha"
+TituloOffcanvas="@tituloFicha">
 	<Formulario>
 		@if (QuieroVerFormulario)
 		{
 			<FichaFormularioGenerica RegistroOrigenTabla="@RegistroSeleccionado"
-									 ModoAccion="accionSeleccionada"
-									 Lista_Tabulaciones="Lista_Tabulaciones"
-									 OnFormularioModificado="HandleFormularioModificado"
-									 OnGuardarCambios="GuardarCambios"
-									 OnEliminar="ConfirmarEliminar"
-									 OnCancelarEliminar="CancelarEliminar"
-									 OnCambiarPestanya="OnCambiarPestanya"
-									 PestanyaSeleccionada="PestanyaSeleccionada">
+			ModoAccion="accionSeleccionada"
+			Lista_Tabulaciones="Lista_Tabulaciones"
+			OnFormularioModificado="HandleFormularioModificado"
+			OnGuardarCambios="GuardarCambios"
+			OnCancelarCambios="CancelarCambios"
+			OnEliminar="ConfirmarEliminar"
+			OnCancelarEliminar="CancelarEliminar"
+			OnCambiarPestanya="OnCambiarPestanya"
+			PestanyaSeleccionada="PestanyaSeleccionada">
 			</FichaFormularioGenerica>
 		}
 	</Formulario>
@@ -71,13 +97,13 @@
 	[Parameter] public List<T>? ListaGenerica { get; set; }
 	[Parameter] public List<Tabulacion>? Lista_Tabulaciones { get; set; }
 	[Parameter] public PestanyaEnum PestanyaSeleccionada { get; set; } = PestanyaEnum.Uno;
+	[Parameter] public string? idFicha { get; set; }
+	[Parameter] public string? tituloFicha { get; set; }
 
 	private T? RegistroOriginal { get; set; }
 	private T? RegistroModificado { get; set; }
 	private List<PropiedadesTablaColumna>? columnas;
 	private T? RegistroSeleccionado;
-	private string idFicha = "offcanvasVehiculo";
-	private string tituloFicha = "Detalles del Vehículo";
 	private Accion accionSeleccionada;
 	private bool estaEliminando = false;
 	private bool QuieroVerFormulario = false;
@@ -87,7 +113,7 @@
 	protected override void OnInitialized()
 	{
 		// Obtener las columnas utilizando el método de la clase Utilidades
-		columnas = Utilidades.ObtenerPropiedadesColumnas<Vehiculo>();
+		columnas = Utilidades.ObtenerPropiedadesColumnas<T>();
 	}
 
 	private void HandleFormularioModificado(bool modificado)
@@ -204,6 +230,33 @@
 		}
 	}
 
+	private async Task CancelarCambios()
+	{
+		if (esModificado) //Si hay modificaciones
+		{
+			var confirmacion = await JSRuntime.InvokeAsync<bool>("confirm", "¿Tienes cambios no guardados. ¿Estás seguro de que quieres cerrar sin guardar?");
+
+			if (!confirmacion)
+			{
+				return; // Si el usuario cancela el cierre, no hacemos nada
+			}
+
+			// Si el usuario acepta, restauramos el valor original
+			if (RegistroOriginal != null && RegistroSeleccionado != null)
+			{
+				var propiedades = typeof(T).GetProperties();
+				foreach (var propiedad in propiedades)
+				{
+					var valorOriginal = propiedad.GetValue(RegistroOriginal);
+					propiedad.SetValue(RegistroSeleccionado, valorOriginal);
+				}
+			}
+		}
+		estaEliminando = false;
+		QuieroVerFormulario = false;
+		await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
+	}
+
 	private void ConfirmarEliminar()
 	{
 		if (RegistroSeleccionado != null)
@@ -223,5 +276,22 @@
 	private void OnCambiarPestanya(PestanyaEnum pestanyaSeleccionada)
 	{
 		PestanyaSeleccionada = pestanyaSeleccionada;
+	}
+
+	// Método para manejar la selección de una fila
+	private void SeleccionarFila(T item)
+	{
+		RegistroSeleccionado = item;
+	}
+
+	// Método para obtener la clase CSS de la fila seleccionada
+	private string ObtenerClaseFila(T item)
+	{
+		if (EqualityComparer<T>.Default.Equals(RegistroSeleccionado, item))
+		{
+			return "fila-seleccionada"; // Clase CSS personalizada para fila seleccionada
+		}
+
+		return string.Empty;
 	}
 }

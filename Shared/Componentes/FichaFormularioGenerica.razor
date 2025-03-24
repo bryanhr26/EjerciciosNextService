@@ -1,5 +1,5 @@
-﻿@using BlazorApp1.Models
-@using System.Reflection
+﻿@using System.Reflection
+@using BlazorApp1.Models
 
 @typeparam T
 @inherits BaseFormulario<T>
@@ -9,10 +9,10 @@
 	@if (RegistroCompleto != null)
 	{
 		<div class="datos-vehiculo">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				@if (TieneTabulaciones)
-				{
-					foreach (var tab in Lista_Tabulaciones!)
+			@if (TieneTabulaciones)
+			{
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					@foreach (var tab in Lista_Tabulaciones!)
 					{
 						<li class="nav-item" role="presentation">
 							<button class="nav-link @(PestanyaSeleccionada == tab.ID ? "active" : "")"
@@ -28,8 +28,8 @@
 							</button>
 						</li>
 					}
-				}
-			</ul>
+				</ul>
+			}
 
 			<div class="tab-content" id="myTabContent">
 				@if (TieneTabulaciones)
@@ -44,7 +44,7 @@
 
 							@if (Atributos != null && Atributos.Count() > 0)
 							{
-								@foreach (var atributo in Atributos)
+								@foreach (var atributo in ObtenerAtributosOrdenados())
 								{
 									var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
 
@@ -67,7 +67,7 @@
 												{
 													<label><strong>@atributo.Name:</strong></label>
 													<input type="@tipoLabel"
-													style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
+													style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "") width: @propiedadesFormulario.Ancho; margin: @propiedadesFormulario.Margenes"
 													disabled="@deshabilitado"
 													value="@valor"
 													@onchange="(e) => ActualizarValor(e, atributo.Name)" />
@@ -81,53 +81,90 @@
 					}
 				}
 
-				@* Si la lista de tabulaciones es null o no existe nos enseñara todos los atributos. *@
 				@if (!TieneTabulaciones)
 				{
 					@if (Atributos != null && Atributos.Count() > 0)
 					{
-						@foreach (var atributo in Atributos)
-						{
-							var valor = atributo.GetValue(RegistroOrigenTabla);
-							var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
-
-							if (propiedadesFormulario != null)
+						<div class="contenedor-notab">
+							@foreach (var atributo in ObtenerAtributosOrdenados())
 							{
-								<div>
-									@{
-										var tipoLabel = ObtenerTipoLabel(atributo);
-										var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
-									}
 
-									@if (propiedadesFormulario.Visible)
-									{
-										<label><strong>@atributo.Name:</strong></label>
-										<input type="@tipoLabel"
-										style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "")"
-										disabled="@deshabilitado"
-										value="@valor"
-										@onchange="(e) => ActualizarValor(e, atributo.Name)" />
-									}
-								</div>
+								var propiedadesFormulario = ObtenerDatosFormularioAtributo(atributo);
 
+								if (propiedadesFormulario != null)
+								{
+									<div class="contenedor-valorAtributo">
+										
+										@{
+											var tipoLabel = ObtenerTipoLabel(atributo);
+											var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
+										}
+
+										@if (propiedadesFormulario.Visible)
+										{
+											@* Comprobación si el atributo es bool y cambiamos el orden *@
+											@if (atributo.PropertyType == typeof(bool))
+											{
+												<div class="valorAtributosFormBool">
+													<input type="@tipoLabel"
+														   style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : ""); width: @propiedadesFormulario.Ancho; margin: @propiedadesFormulario.Margenes"
+														   disabled="@deshabilitado"
+														   value="@atributo.GetValue(RegistroCompleto)"
+														   @onchange="(e) => ActualizarValor(e, atributo.Name)" />
+													<label><strong>@propiedadesFormulario.Titulo</strong></label>
+													<br />
+													<label style=" margin-left: 5px">@propiedadesFormulario.Subtexto</label>
+												</div>
+											}
+											else
+											{
+												<div class="valorAtributoForm">
+													<label><strong>@propiedadesFormulario.Titulo</strong></label>
+													<div class="input-group" style="width: @propiedadesFormulario.Ancho; height: 38px; margin: 5px 0px 0px 0px;">
+														<input type="@tipoLabel"
+															   style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "") width: @propiedadesFormulario.Ancho; margin: @propiedadesFormulario.Margenes;"
+															   disabled="@deshabilitado"
+															   value="@atributo.GetValue(RegistroCompleto)"
+															   @onchange="(e) => ActualizarValor(e, atributo.Name)" />
+														@if (ModoAccion == Accion.Editar){
+															<button type="button" class="ns-input-clear" @onclick="() => LimpiarValor(atributo.Name)">
+																<span class="icono-limpiar" title="" style="font-size: 15px; line-height: 1">
+																	<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<path d="M18 6L12 12M12 12L6 18M12 12L18 18M12 12L6 6"
+																			  stroke="#2a2a2a"
+																			  stroke-width="1.5"
+																			  stroke-linecap="round"
+																			  stroke-linejoin="round">
+																		</path>
+																	</svg>
+																</span>
+															</button>
+														}
+													</div>
+												</div>
+											}
+										}
+									</div>
+								}
 							}
-						}
+						</div>
 					}
 				}
 			</div>
 		</div>
-		<div class="botones-accion" style="padding-top: 20px;">
+		<div class="botones-accion">
 			@if (ModoAccion == Accion.Editar)
 			{
-				<button @onclick="OnGuardarCambios">Guardar cambios</button>
+				<button @onclick="OnCancelarCambios" class="boton-cancelar">Cancelar</button>
+				<button @onclick="OnGuardarCambios" class="boton-guardar">Guardar</button>
 			}
 
 			@if (ModoAccion == Accion.Eliminar)
 			{
 				<div>
 					<p>¿Estás seguro de que deseas eliminar este vehículo?</p>
-					<button @onclick="OnEliminar">Eliminar</button>
-					<button @onclick="OnCancelarEliminar">Cancelar</button>
+					<button @onclick="OnCancelarEliminar" class="boton-cancelar">Cancelar</button>
+					<button @onclick="OnEliminar" class="boton-eliminar">Eliminar</button>
 				</div>
 			}
 		</div>
@@ -146,12 +183,51 @@
 		PestanyaSeleccionada = pestanya;
 		await OnCambiarPestanya.InvokeAsync(PestanyaSeleccionada);
 	}
-	//ATERIBUTOS FORM:
-	//1. CON UN ENUM DECIRLE AL ATRIBUTO (VEHICULO) A QUE PESTAÑA PERTENECE (1,2,3....)
-	// METER AL ATRIBUTO UN STRING DE MARGENES
-	//2. CREAR EN HTML Y TAL, LAS PESTAÑAS
-	//3. POR PARAMETRO DECIRLE EL NUMERO DE PESTAÑAS, DE MOMENTO EL NOMBRE DE LAS PESTAÑASS SERA SU NUMERO
-	//4. FILTRAR EL CONTENIDO DE CADA PESTAÑA SEGUN EL ATRIBUTO DE LA PESTAÑA A LA QUE PERTENECE
 
-	// Si no tienen TABULACIONES que se muestre todo en pantalla, ahora mismo esta hecho que solo se muestra si tiene tabulaciones
+	// Función para limpiar el valor del atributo
+	private void LimpiarValor(string nombreAtributo)
+	{
+		// Encuentra el atributo correspondiente
+		var atributo = typeof(T).GetProperty(nombreAtributo);
+
+		if (atributo != null)
+		{
+			// Establece el valor del atributo a null o vacío, dependiendo del tipo
+			if (atributo.PropertyType == typeof(string))
+			{
+				atributo.SetValue(RegistroCompleto, string.Empty);
+			}
+			else if (atributo.PropertyType == typeof(bool))
+			{
+				atributo.SetValue(RegistroCompleto, false);
+			}
+			else
+			{
+				// Para otros tipos, podrías asignar el valor por defecto
+				atributo.SetValue(RegistroCompleto, null);
+			}
+
+			StateHasChanged();
+		}
+	}
+
+	private IEnumerable<PropertyInfo> ObtenerAtributosOrdenados()
+	{
+		var atributos = typeof(T).GetProperties();
+
+		// Filtra las propiedades que tienen el atributo OrdenFormularioAttribute
+		var propiedadesConOrden = atributos.Where(p => p.GetCustomAttribute<OrdenFormularioAttribute>() != null);
+
+		// Si hay propiedades con el atributo OrdenFormulario, las ordena por el atributo
+		if (propiedadesConOrden.Any())
+		{
+			return propiedadesConOrden.OrderBy(p => p.GetCustomAttribute<OrdenFormularioAttribute>().Orden);
+		}
+		else
+		{
+			// Si no hay propiedades con el atributo OrdenFormularioAttribute, devuelve las propiedades sin ordenar
+			return atributos;
+		}
+	}
+
 }

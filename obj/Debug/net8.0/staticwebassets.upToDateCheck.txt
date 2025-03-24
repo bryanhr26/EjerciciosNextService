@@ -181,9 +181,11 @@ wwwroot\css\Boostrap 5.0\bootstrap-5.0.2-dist\js\bootstrap.min.js
 wwwroot\css\Boostrap 5.0\bootstrap-5.0.2-dist\js\bootstrap.min.js.map
 wwwroot\css\bootstrap\bootstrap.min.css
 wwwroot\css\bootstrap\bootstrap.min.css.map
+wwwroot\css\TablaGenerica.css
 wwwroot\favicon.png
 wwwroot\icon-192.png
 wwwroot\index.html
 wwwroot\js\FuncionesJS.js
+wwwroot\Paises.json
 wwwroot\sample-data\weather.json
 wwwroot\Vehiculos.json

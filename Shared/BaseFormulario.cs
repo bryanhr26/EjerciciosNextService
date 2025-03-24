@@ -1,7 +1,8 @@
 ﻿using BlazorApp1.Models;
 using Microsoft.AspNetCore.Components;
 using System.Reflection;
-using static BlazorApp1.Models.Tabla;
+using static BlazorApp1.Models.AtributosFormulario;
+using static BlazorApp1.Models.AtributosTabla;
 
 namespace BlazorApp1.Shared
 {
@@ -10,6 +11,7 @@ namespace BlazorApp1.Shared
         [Parameter] public T? RegistroOrigenTabla { get; set; }
         [Parameter] public Accion ModoAccion { get; set; }
         [Parameter] public EventCallback OnGuardarCambios { get; set; }
+        [Parameter] public EventCallback OnCancelarCambios { get; set; }
         [Parameter] public EventCallback OnEliminar { get; set; }
         [Parameter] public EventCallback OnCancelarEliminar { get; set; }
         [Parameter] public EventCallback<bool> OnFormularioModificado { get; set; }
@@ -73,6 +75,11 @@ namespace BlazorApp1.Shared
             if (propiedad.PropertyType == typeof(int))
             {
                 tipoLabel = "number";
+            }
+
+            if (propiedad.PropertyType == typeof(bool))
+            {
+                tipoLabel = "checkbox";
             }
 
             return tipoLabel;

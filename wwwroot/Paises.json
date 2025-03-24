@@ -1,0 +1,32 @@
+﻿[
+    {
+        "id": 1,
+        "codigo": "AND",
+        "nombre": "ANDORRA",
+        "codInternacional": "ES",
+        "miembroCEE": false,
+        "defecto": false,
+        "baja": false,
+        "esPredefinido": true
+    },
+    {
+        "id": 2,
+        "codigo": "BR",
+        "nombre": "BRASIL",
+        "codInternacional": "BR",
+        "miembroCEE": false,
+        "defecto": false,
+        "baja": false,
+        "esPredefinido": false
+    },
+    {
+        "id": 3,
+        "codigo": "DEU",
+        "nombre": "ALEMANIA",
+        "codInternacional": "DE",
+        "miembroCEE": true,
+        "defecto": false,
+        "baja": true,
+        "esPredefinido": false
+    }
+]

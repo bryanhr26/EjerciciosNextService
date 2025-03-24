@@ -1,0 +1,34 @@
+﻿@page "/paises"
+@inject PaisesService PaisesService
+@using BlazorApp1.Models
+@using BlazorApp1.Shared.Componentes
+
+<BlazorApp1.Shared.Componentes.TablaGenerica Lista_Tabulaciones="@tabs" 
+                                             ListaGenerica="paises" 
+                                             idFicha="@idFicha" 
+                                             tituloFicha="@tituloPaises"
+>
+
+</BlazorApp1.Shared.Componentes.TablaGenerica>
+
+@code {
+
+    private List<Paises> paises = new List<Paises>();
+    private List<Tabulacion> tabs = new List<Tabulacion>();
+    private string idFicha = "offcanvasPaises";
+    private string tituloPaises = "Detalles del pais";
+
+    protected override async Task OnInitializedAsync()
+    {
+        paises = await PaisesService.GetPaisesAsync();
+
+        if (paises == null || !paises.Any())
+        {
+            Console.WriteLine("No se encontraron paises o la respuesta es nula.");
+        }
+
+    }
+
+}
+@*Crrear un json de paises replicando los tres pirmeros de nextgo.
+Intentar replicar la tabla Configuraciones>Sistema>Postales>Paises.*@

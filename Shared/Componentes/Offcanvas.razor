@@ -1,11 +1,11 @@
 ﻿@inject IJSRuntime JSRuntime
 
 <div class="offcanvas offcanvas-end" style="width: @AnchoOffcanvas;" data-bs-scroll="true" data-bs-keyboard="false" data-bs-backdrop="true" tabindex="-1" id="@IdOffcanvas" aria-labelledby="offcanvasWithBothOptionsLabel" role="slider">
-    <div class="offcanvas-header" style="background-color: rgb(7 27 69); color: white;">
+    <div class="offcanvas-header" style="width: 100%; height: 50px; display: flex; background-color: #d77411; color: white;">
         <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">@TituloOffcanvas</h5>
         <button @onclick="OnCerrarOffcanvas" type="button" class="btn-close" style="background-color: white; opacity: 90;" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body" style="background-color: #ececec; overflow-y: inherit;">
         @Formulario
     </div>
 </div>

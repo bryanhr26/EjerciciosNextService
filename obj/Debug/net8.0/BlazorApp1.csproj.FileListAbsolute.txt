@@ -2077,6 +2077,6 @@ C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\BlazorApp1.
 C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\refint\BlazorApp1.dll
 C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\BlazorApp1.pdb
 C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\ref\BlazorApp1.dll
-C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\compressed\mpnezo3ggr-3dq6jk0qha.gz
-C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\compressed\kyjy2iuvp1-ixlqr9rk20.gz
-C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\compressed\5jzqasczcu-sztbekn5if.gz
+C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\compressed\mpnezo3ggr-orfeq0f1wz.gz
+C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\compressed\kyjy2iuvp1-e3fuw9gu27.gz
+C:\Users\Usuario\Source\Repos\EjerciciosNextService\obj\Debug\net8.0\compressed\5jzqasczcu-8ry030ykou.gz

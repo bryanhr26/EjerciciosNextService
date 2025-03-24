@@ -1,29 +1,13 @@
 ﻿namespace BlazorApp1.Models
 {
-    public class Tabla
+    public class AtributosFormulario
     {
-        [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-        public sealed class PropiedadTablaColumnaAttribute : Attribute
-        {
-            public string Nombre { get; }
-            public bool Visible { get; }
-            public int Ancho { get; }
-            public bool EsAccion { get; }
-
-            public PropiedadTablaColumnaAttribute(string nombre, bool visible = true, int ancho = 100, bool esAccion = false)
-            {
-                Nombre = nombre;
-                Visible = visible;
-                Ancho = ancho;
-                EsAccion = esAccion;
-            }
-        }
-
         [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
         public sealed class PropiedadesFormularioAttribute : Attribute
         {
             public bool Visible { get; set; }
             public bool Habilitado { get; set; }
+            public int Orden { get; set; }
             public string? Ancho { get; set; }
             public PestanyaEnum Pestanya { get; set; }
             public string Titulo { get; set; }
@@ -42,6 +26,17 @@
             }
         }
 
+        [AttributeUsage(AttributeTargets.Property)]
+        public class OrdenFormularioAttribute : Attribute
+        {
+            public int Orden { get; set; }
+
+            public OrdenFormularioAttribute(int orden)
+            {
+                Orden = orden;
+            }
+        }
+
         public class Tabulacion
         {
             public PestanyaEnum ID { get; set; }
@@ -53,13 +48,6 @@
             Uno = 1,
             Dos = 2,
             Tres = 3
-        }
-
-        public enum Accion
-        {
-            Ver,
-            Editar,
-            Eliminar
         }
     }
 }

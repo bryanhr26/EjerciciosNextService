@@ -1,6 +1,7 @@
 ﻿@page "/productos/{categoriaId:int}"
 @using BlazorApp1.Models
 @using BlazorApp1.Shared
+@using static BlazorApp1.Models.AtributosTabla
 
 <CascadingValue Value="categoriaSeleccionada">
     <h3>Productos en la categoría: @categoriaSeleccionada?.Nombre</h3>
