@@ -1,5 +1,8 @@
 html, body {
-    font-family: "Inter", sans-serif;
+    font-family: "Inter", serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
 }
 
 h1:focus {

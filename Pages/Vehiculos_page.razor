@@ -3,7 +3,7 @@
 @using BlazorApp1.Models
 @using BlazorApp1.Shared.Componentes
 
-<BlazorApp1.Shared.Componentes.TablaGenerica Lista_Tabulaciones="@tabs" ListaGenerica="vehiculos" idFicha="@idFicha" tituloFicha="@tituloVehiculos">
+<BlazorApp1.Shared.Componentes.TablaGenerica Lista_Tabulaciones="@tabs" ListaGenerica="vehiculos" tituloTabla="@tituloTabla" idFicha="@idFicha" tituloFicha="@tituloVehiculos">
 
 </BlazorApp1.Shared.Componentes.TablaGenerica>
 
@@ -22,6 +22,7 @@
     private List<Tabulacion> tabs = new List<Tabulacion>();
     private string idFicha = "offcanvasVehiculo";
     private string tituloVehiculos = "Detalles del Vehículo";
+    private string tituloTabla = "Tabla de vehiculos";
 
 
     protected override async Task OnInitializedAsync()

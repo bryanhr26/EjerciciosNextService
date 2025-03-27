@@ -1,0 +1,26 @@
+﻿[
+    {
+        "id": 1,
+        "codigo": "AUD",
+        "norma": "MANO DE OBRA",
+        "descripcion": "TOTAL MANO DE OBRA INFORME ADJUNTO",
+        "tasaImpositiva": false,
+        "baja": false
+    },
+    {
+        "id": 2,
+        "codigo": "000",
+        "norma": "1234456",
+        "descripcion": "Sustitucion FILTRO DE ACEITE",
+        "tasaImpositiva": true,
+        "baja": false
+    },
+    {
+        "id": 3,
+        "codigo": "15",
+        "norma": "VARIOS",
+        "descripcion": "REPARAR PINCHAZO",
+        "tasaImpositiva": true,
+        "baja": false
+    }
+]

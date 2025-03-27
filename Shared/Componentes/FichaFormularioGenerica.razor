@@ -94,7 +94,7 @@
 								if (propiedadesFormulario != null)
 								{
 									<div class="contenedor-valorAtributo">
-										
+
 										@{
 											var tipoLabel = ObtenerTipoLabel(atributo);
 											var deshabilitado = (!propiedadesFormulario.Habilitado || ModoAccion == Accion.Ver);
@@ -107,12 +107,11 @@
 											{
 												<div class="valorAtributosFormBool">
 													<input type="@tipoLabel"
-														   style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : ""); width: @propiedadesFormulario.Ancho; margin: @propiedadesFormulario.Margenes"
-														   disabled="@deshabilitado"
-														   value="@atributo.GetValue(RegistroCompleto)"
-														   @onchange="(e) => ActualizarValor(e, atributo.Name)" />
+													style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : ""); width: @propiedadesFormulario.Ancho; margin: @propiedadesFormulario.Margenes"
+													disabled="@deshabilitado"
+													value="@atributo.GetValue(RegistroCompleto)"
+													@onchange="(e) => ActualizarValor(e, atributo.Name)" />
 													<label><strong>@propiedadesFormulario.Titulo</strong></label>
-													<br />
 													<label style=" margin-left: 5px">@propiedadesFormulario.Subtexto</label>
 												</div>
 											}
@@ -122,19 +121,19 @@
 													<label><strong>@propiedadesFormulario.Titulo</strong></label>
 													<div class="input-group" style="width: @propiedadesFormulario.Ancho; height: 38px; margin: 5px 0px 0px 0px;">
 														<input type="@tipoLabel"
-															   style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "") width: @propiedadesFormulario.Ancho; margin: @propiedadesFormulario.Margenes;"
-															   disabled="@deshabilitado"
-															   value="@atributo.GetValue(RegistroCompleto)"
-															   @onchange="(e) => ActualizarValor(e, atributo.Name)" />
+														style="@(deshabilitado ? "opacity: 0.6; pointer-events: none;" : "") width: @propiedadesFormulario.Ancho; margin: @propiedadesFormulario.Margenes;"
+														disabled="@deshabilitado"
+														value="@atributo.GetValue(RegistroCompleto)"
+														@onchange="(e) => ActualizarValor(e, atributo.Name)" />
 														@if (ModoAccion == Accion.Editar){
 															<button type="button" class="ns-input-clear" @onclick="() => LimpiarValor(atributo.Name)">
 																<span class="icono-limpiar" title="" style="font-size: 15px; line-height: 1">
 																	<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 																		<path d="M18 6L12 12M12 12L6 18M12 12L18 18M12 12L6 6"
-																			  stroke="#2a2a2a"
-																			  stroke-width="1.5"
-																			  stroke-linecap="round"
-																			  stroke-linejoin="round">
+																		stroke="#2a2a2a"
+																		stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round">
 																		</path>
 																	</svg>
 																</span>
@@ -145,6 +144,12 @@
 											}
 										}
 									</div>
+									var saltoLinea = atributo.GetCustomAttribute<PropiedadesFormularioAttribute>()?.SaltoLinea;
+									@if (saltoLinea == true)
+									{
+										<!-- Si el atributo tiene SaltoLinea, lo bajamos a la linea inferior -->
+										<div style="width: 100%;"></div>
+									}
 								}
 							}
 						</div>
@@ -155,17 +160,23 @@
 		<div class="botones-accion">
 			@if (ModoAccion == Accion.Editar)
 			{
-				<button @onclick="OnCancelarCambios" class="boton-cancelar">Cancelar</button>
-				<button @onclick="OnGuardarCambios" class="boton-guardar">Guardar</button>
+				<button  class="boton-cancelar">Cancelar</button>
+				<button  class="boton-guardar">Guardar</button>
 			}
 
 			@if (ModoAccion == Accion.Eliminar)
 			{
 				<div>
 					<p>¿Estás seguro de que deseas eliminar este vehículo?</p>
-					<button @onclick="OnCancelarEliminar" class="boton-cancelar">Cancelar</button>
-					<button @onclick="OnEliminar" class="boton-eliminar">Eliminar</button>
+					<button  class="boton-cancelar">Cancelar</button>
+					<button  class="boton-eliminar">Eliminar</button>
 				</div>
+			}
+
+			@if (ModoAccion == Accion.Crear)
+			{
+				<button class="boton-cancelar">Cancelar</button>
+				<button class="boton-guardar">Guardar</button>
 			}
 		</div>
 	}
@@ -211,6 +222,23 @@
 		}
 	}
 
+	public void ActualizarValor(ChangeEventArgs e, string propiedad)
+	{
+		// Obtiene el nuevo valor desde el evento ChangeEventArgs
+		var nuevoValor = e.Value.ToString();
+
+		// Usamos reflexión para obtener la propiedad correspondiente en el objeto
+		var propiedadInfo = typeof(T).GetProperty(propiedad);
+
+		if (propiedadInfo != null && propiedadInfo.CanWrite)
+		{
+			// Asignamos el nuevo valor a la propiedad
+			propiedadInfo.SetValue(RegistroCompleto, Convert.ChangeType(nuevoValor, propiedadInfo.PropertyType));
+
+		}
+	}
+
+
 	private IEnumerable<PropertyInfo> ObtenerAtributosOrdenados()
 	{
 		var atributos = typeof(T).GetProperties();
@@ -221,7 +249,7 @@
 		// Si hay propiedades con el atributo OrdenFormulario, las ordena por el atributo
 		if (propiedadesConOrden.Any())
 		{
-			return propiedadesConOrden.OrderBy(p => p.GetCustomAttribute<OrdenFormularioAttribute>().Orden);
+			return propiedadesConOrden.OrderBy(p => p.GetCustomAttribute<OrdenFormularioAttribute>()?.Orden);
 		}
 		else
 		{

@@ -3,10 +3,11 @@
 @using BlazorApp1.Models
 @using BlazorApp1.Shared.Componentes
 
-<BlazorApp1.Shared.Componentes.TablaGenerica Lista_Tabulaciones="@tabs" 
-                                             ListaGenerica="paises" 
-                                             idFicha="@idFicha" 
-                                             tituloFicha="@tituloPaises"
+<BlazorApp1.Shared.Componentes.TablaGenerica Lista_Tabulaciones="@tabs"
+ListaGenerica="paises"
+tituloTabla="@tituloTabla"
+idFicha="@idFicha"
+tituloFicha="@tituloPaises"
 >
 
 </BlazorApp1.Shared.Componentes.TablaGenerica>
@@ -17,6 +18,7 @@
     private List<Tabulacion> tabs = new List<Tabulacion>();
     private string idFicha = "offcanvasPaises";
     private string tituloPaises = "Detalles del pais";
+    private string tituloTabla = "Tabla de Paises";
 
     protected override async Task OnInitializedAsync()
     {

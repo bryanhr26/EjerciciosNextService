@@ -20,7 +20,7 @@ namespace BlazorApp1.Models
         public string? nombre { get; set; }
         [OrdenFormulario(2)]
         [PropiedadTablaColumna("Cod. internacional", true, 600)]
-        [PropiedadesFormulario(visible: true, ancho: "200px", habilitado: true, Titulo = "Código internacional:")]
+        [PropiedadesFormulario(visible: true, ancho: "200px", habilitado: true, Titulo = "Código internacional:", SaltoLinea = true)]
         public string? codInternacional { get; set; }
         [OrdenFormulario(4)]
         [PropiedadTablaColumna("Miembro CEE", true, 250, "center")]
@@ -34,7 +34,7 @@ namespace BlazorApp1.Models
         [PropiedadTablaColumna("Predefinido", false, 75, "center")]
         [PropiedadesFormulario(visible: true, ancho: "15px", habilitado: true, Titulo = "País predefinido", Subtexto = "Si en el sistema exista la opción de seleccionar mas de un país, éste será el país seleccionado por defecto.")]
         public bool esPredefinido { get; set; }
-        [PropiedadTablaColumna("Acciones", true, 200, "left", true)]
+        [PropiedadTablaColumna("Acción", true, 200, "left", true)]
         public string Acciones { get; set; } = string.Empty; // Este campo podría ser utilizado para botones de acción, como "editar" o "eliminar"
     }
 }

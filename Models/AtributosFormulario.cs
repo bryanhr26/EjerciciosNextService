@@ -13,8 +13,9 @@
             public string Titulo { get; set; }
             public string Subtexto { get; set; }
             public string Margenes { get; set; }
+            public bool SaltoLinea { get; set; }
 
-            public PropiedadesFormularioAttribute(bool visible = true, string ancho = "100%", bool habilitado = true, PestanyaEnum pestanya = PestanyaEnum.Uno, string titulo = "", string subtexto = "", string margenes = "")
+            public PropiedadesFormularioAttribute(bool visible = true, string ancho = "100%", bool habilitado = true, PestanyaEnum pestanya = PestanyaEnum.Uno, string titulo = "", string subtexto = "", string margenes = "", bool saltoLinea = false)
             {
                 Visible = visible;
                 Habilitado = habilitado;
@@ -23,6 +24,7 @@
                 Titulo = titulo;
                 Subtexto = subtexto;
                 Margenes = margenes;
+                SaltoLinea = saltoLinea;
             }
         }
 

@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\BlazorApp1.styles.css"
     },
     {
+      "Id": "C:\\Users\\Usuario\\Source\\Repos\\EjerciciosNextService\\wwwroot\\Facturacion.json",
+      "PackagePath": "staticwebassets\\Facturacion.json"
+    },
+    {
       "Id": "C:\\Users\\Usuario\\Source\\Repos\\EjerciciosNextService\\wwwroot\\Paises.json",
       "PackagePath": "staticwebassets\\Paises.json"
     },
@@ -735,6 +739,10 @@
     {
       "Id": "C:\\Users\\Usuario\\Source\\Repos\\EjerciciosNextService\\wwwroot\\css\\Boostrap 5.0\\bootstrap-5.0.2-dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\css\\Boostrap 5.0\\bootstrap-5.0.2-dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Usuario\\Source\\Repos\\EjerciciosNextService\\wwwroot\\css\\IconosNavMenu.css",
+      "PackagePath": "staticwebassets\\css\\IconosNavMenu.css"
     },
     {
       "Id": "C:\\Users\\Usuario\\Source\\Repos\\EjerciciosNextService\\wwwroot\\css\\TablaGenerica.css",

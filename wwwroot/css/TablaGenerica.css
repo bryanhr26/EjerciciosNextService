@@ -42,6 +42,19 @@
     color: #2a2a2a !important;
 }
 
+.botonCrear {
+    display: flex;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 10px;
+}
+
+.botonesTabla{
+    display: flex;
+    justify-content: right;
+}
+
 /* ========== FORMULARIO ========== */
 .contenedor-notab {
     display: flex;
@@ -57,7 +70,7 @@
 .valorAtributoForm {
     display: grid;
     flex-direction: row;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     justify-content: space-between;
 }
 

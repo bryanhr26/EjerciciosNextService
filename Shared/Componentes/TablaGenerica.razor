@@ -5,7 +5,12 @@
 
 @typeparam T
 
-<h3>Lista de Vehículos</h3>
+<h3>@tituloTabla</h3>
+<div class="botonesTabla">
+	<button type="button" class="botonCrear" @onclick="Crear" style="display: flex; background: black; color: white; border-radius: 5px; padding: 10px 10px;">
+		<span>Crear registro</span>
+	</button>
+</div>
 <div class="contenedor-tabla">
 	<table class="table tabla-generica">
 		<thead class="thead">
@@ -30,13 +35,13 @@
 							if (columna.EsAccion)
 							{
 								<td style="width: @(columna.Ancho.ToString() + "px");">
-									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Ver)">
+									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Ver)" title="Consultar registro">
 										<i class="fas fa-eye"></i>
 									</span>
-									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Editar)">
+									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Editar)" title="Modificar registro">
 										<i class="fas fa-pencil-alt"></i>
 									</span>
-									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Eliminar)">
+									<span class="boton-accion" @onclick="() => RealizarAccion(item, Accion.Eliminar)" title="Eliminar registro">
 										<i class="fas fa-trash-alt"></i>
 									</span>
 								</td>
@@ -81,13 +86,9 @@ TituloOffcanvas="@tituloFicha">
 			<FichaFormularioGenerica RegistroOrigenTabla="@RegistroSeleccionado"
 			ModoAccion="accionSeleccionada"
 			Lista_Tabulaciones="Lista_Tabulaciones"
-			OnFormularioModificado="HandleFormularioModificado"
-			OnGuardarCambios="GuardarCambios"
-			OnCancelarCambios="CancelarCambios"
-			OnEliminar="ConfirmarEliminar"
-			OnCancelarEliminar="CancelarEliminar"
 			OnCambiarPestanya="OnCambiarPestanya"
 			PestanyaSeleccionada="PestanyaSeleccionada">
+
 			</FichaFormularioGenerica>
 		}
 	</Formulario>
@@ -99,9 +100,8 @@ TituloOffcanvas="@tituloFicha">
 	[Parameter] public PestanyaEnum PestanyaSeleccionada { get; set; } = PestanyaEnum.Uno;
 	[Parameter] public string? idFicha { get; set; }
 	[Parameter] public string? tituloFicha { get; set; }
+	[Parameter] public string? tituloTabla { get; set; }
 
-	private T? RegistroOriginal { get; set; }
-	private T? RegistroModificado { get; set; }
 	private List<PropiedadesTablaColumna>? columnas;
 	private T? RegistroSeleccionado;
 	private Accion accionSeleccionada;
@@ -121,62 +121,34 @@ TituloOffcanvas="@tituloFicha">
 		esModificado = modificado;
 	}
 
+	private void Crear()
+	{
+		T instancia = Activator.CreateInstance<T>();
+		RealizarAccion(instancia, Accion.Crear);
+	}
+
 	private void RealizarAccion(T item, Accion accion)
 	{
 		accionSeleccionada = accion;
+		RegistroSeleccionado = item;
 
 		switch (accion)
 		{
 			case Accion.Ver:
-				Ver(item);
 				break;
 			case Accion.Editar:
-				Editar(item);
 				break;
 			case Accion.Eliminar:
-				Eliminar(item);
+				estaEliminando = true;
+				break;
+			case Accion.Crear:
 				break;
 		}
-	}
-
-	private void Ver(T item)
-	{
-		// Lógica para ver el item
-		RegistroSeleccionado = item;
-		OpenOffcanvas();
-	}
-
-	private void Editar(T item)
-	{
-		// Lógica para editar el item
-		RegistroSeleccionado = item;
-		OpenOffcanvas();
-	}
-
-	private void Eliminar(T item)
-	{
-		// Lógica para eliminar el item
-		//Eliminar el vehículo
-		estaEliminando = true; // Marcamos que estamos en el proceso de eliminar
-		RegistroSeleccionado = item;
 		OpenOffcanvas();
 	}
 
 	private async Task OpenOffcanvas()
 	{
-		// Guardamos una copia del valor original cuando se abre el offcanvas
-		RegistroOriginal = (T)Activator.CreateInstance(typeof(T));
-		if (RegistroSeleccionado != null)
-		{
-			RegistroOriginal = (T)Activator.CreateInstance(typeof(T));
-			var propiedades = typeof(T).GetProperties();
-			foreach (var propiedad in propiedades)
-			{
-				var valorOriginal = propiedad.GetValue(RegistroSeleccionado);
-				propiedad.SetValue(RegistroOriginal, valorOriginal);
-			}
-		}
-
 		//Llamar a la funcion JS para abrir Offcanvas
 		QuieroVerFormulario = true;
 		cambioGuardado = false;
@@ -194,83 +166,10 @@ TituloOffcanvas="@tituloFicha">
 				return; // Si el usuario cancela el cierre, no hacemos nada
 			}
 
-			// Si el usuario acepta, restauramos el valor original
-			if (RegistroOriginal != null && RegistroSeleccionado != null)
-			{
-				var propiedades = typeof(T).GetProperties();
-				foreach (var propiedad in propiedades)
-				{
-					var valorOriginal = propiedad.GetValue(RegistroOriginal);
-					propiedad.SetValue(RegistroSeleccionado, valorOriginal);
-				}
-			}
 		}
 		estaEliminando = false;
 		QuieroVerFormulario = false;
 		await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
-	}
-
-	private void GuardarCambios()
-	{
-		if (esModificado)
-		{
-			if (RegistroSeleccionado != null)
-			{
-				// Guardar cambios en la lista
-				var index = ListaGenerica?.FindIndex(v => v.Equals(RegistroSeleccionado));
-				if (index.HasValue && index.Value >= 0)
-				{
-					ListaGenerica[index.Value] = (T)(object)RegistroSeleccionado;
-				}
-
-				cambioGuardado = true;
-				esModificado = false;
-			}
-			ControlCerrarOffcanvas();
-		}
-	}
-
-	private async Task CancelarCambios()
-	{
-		if (esModificado) //Si hay modificaciones
-		{
-			var confirmacion = await JSRuntime.InvokeAsync<bool>("confirm", "¿Tienes cambios no guardados. ¿Estás seguro de que quieres cerrar sin guardar?");
-
-			if (!confirmacion)
-			{
-				return; // Si el usuario cancela el cierre, no hacemos nada
-			}
-
-			// Si el usuario acepta, restauramos el valor original
-			if (RegistroOriginal != null && RegistroSeleccionado != null)
-			{
-				var propiedades = typeof(T).GetProperties();
-				foreach (var propiedad in propiedades)
-				{
-					var valorOriginal = propiedad.GetValue(RegistroOriginal);
-					propiedad.SetValue(RegistroSeleccionado, valorOriginal);
-				}
-			}
-		}
-		estaEliminando = false;
-		QuieroVerFormulario = false;
-		await JSRuntime.InvokeVoidAsync("CerrarOffcanvas", idFicha);
-	}
-
-	private void ConfirmarEliminar()
-	{
-		if (RegistroSeleccionado != null)
-		{
-			ListaGenerica?.Remove((T)(object)RegistroSeleccionado);
-		}
-		ControlCerrarOffcanvas();
-	}
-
-	private void CancelarEliminar()
-	{
-		estaEliminando = false;
-		Console.WriteLine("Eliminación cancelada.");
-		ControlCerrarOffcanvas();
 	}
 
 	private void OnCambiarPestanya(PestanyaEnum pestanyaSeleccionada)

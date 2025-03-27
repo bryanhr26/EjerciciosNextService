@@ -1,0 +1,33 @@
+﻿@page "/facturacion"
+@inject FacturacionService FacturacionService
+@using BlazorApp1.Models
+@using BlazorApp1.Shared.Componentes
+
+<BlazorApp1.Shared.Componentes.TablaGenerica Lista_Tabulaciones="@tabs"
+                                             ListaGenerica="facturacion"
+                                             tituloTabla="@tituloTabla"
+                                             idFicha="@idFicha"
+                                             tituloFicha="@tituloFacturas">
+
+</BlazorApp1.Shared.Componentes.TablaGenerica>
+
+@code {
+
+    private List<Facturacion> facturacion = new List<Facturacion>();
+    private List<Tabulacion> tabs = new List<Tabulacion>();
+    private string idFicha = "offcanvasFacturacion";
+    private string tituloFacturas = "Mensaje de facturación";
+    private string tituloTabla = "Tabla de mensajes de facturación";
+
+    protected override async Task OnInitializedAsync()
+    {
+        facturacion = await FacturacionService.GetFacturacionAsync();
+
+        if (facturacion == null || !facturacion.Any())
+        {
+            Console.WriteLine("No se encontraron mensajes de facturas o la respuesta es nula.");
+        }
+
+    }
+
+}

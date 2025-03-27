@@ -27,7 +27,8 @@ namespace BlazorApp1.Models
         {
             Ver,
             Editar,
-            Eliminar
+            Eliminar,
+            Crear
         }
 
         public class PropiedadesTablaColumna

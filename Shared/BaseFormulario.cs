@@ -10,11 +10,6 @@ namespace BlazorApp1.Shared
     {
         [Parameter] public T? RegistroOrigenTabla { get; set; }
         [Parameter] public Accion ModoAccion { get; set; }
-        [Parameter] public EventCallback OnGuardarCambios { get; set; }
-        [Parameter] public EventCallback OnCancelarCambios { get; set; }
-        [Parameter] public EventCallback OnEliminar { get; set; }
-        [Parameter] public EventCallback OnCancelarEliminar { get; set; }
-        [Parameter] public EventCallback<bool> OnFormularioModificado { get; set; }
 
         public T? RegistroCompleto { get; set; }
 
@@ -23,7 +18,14 @@ namespace BlazorApp1.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            RegistroCompleto = ClonarValoresObjetoGenerico(RegistroOrigenTabla);
+            if (ModoAccion != Accion.Crear)
+            {
+                RegistroCompleto = ClonarValoresObjetoGenerico(RegistroOrigenTabla);
+            }
+            else
+            {
+                RegistroCompleto = Activator.CreateInstance<T>();
+            }
             Atributos = typeof(T).GetProperties();
         }
 
@@ -97,7 +99,6 @@ namespace BlazorApp1.Shared
             {
                 // Asignamos el nuevo valor a la propiedad
                 propiedadInfo.SetValue(RegistroCompleto, Convert.ChangeType(nuevoValor, propiedadInfo.PropertyType));
-                OnFormularioModificado.InvokeAsync(true);
             }
         }
     }

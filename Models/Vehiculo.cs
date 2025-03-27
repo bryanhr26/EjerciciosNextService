@@ -30,7 +30,7 @@ namespace BlazorApp1.Models
         [PropiedadesFormulario(visible: true, ancho: "250px", habilitado:false, pestanya: PestanyaEnum.Dos)]
         public string Color { get; set; } = string.Empty;
 
-        [PropiedadTablaColumna("Acciones", true, 200, "left", true)]
+        [PropiedadTablaColumna("Acción", true, 200, "left", true)]
         public string Acciones { get; set; } = string.Empty; // Este campo podría ser utilizado para botones de acción, como "editar" o "eliminar"
     }
 
